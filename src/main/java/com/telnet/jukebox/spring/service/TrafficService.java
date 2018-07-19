@@ -48,7 +48,7 @@ public class TrafficService {
 
 		List<Traffic> listOfTraffic = new ArrayList<Traffic>();
 
-		listOfTraffic = trafficRepository.findTrafficBySong(songId);
+		listOfTraffic = trafficRepository.findTrafficBySongId(songId);
 
 		if (listOfTraffic.isEmpty()) {
 			throw new SongNotFoundException(songId);
@@ -66,7 +66,7 @@ public class TrafficService {
 
 		List<Traffic> listOfTraffic = new ArrayList<Traffic>();
 
-		listOfTraffic = trafficRepository.findTrafficByUser(userId);
+		listOfTraffic = trafficRepository.findTrafficByUserId(userId);
 
 		if (listOfTraffic.isEmpty()) {
 			throw new UserNotFoundException(userId);
@@ -145,7 +145,7 @@ public class TrafficService {
 
 		List<Traffic> listOfTraffic = new ArrayList<Traffic>();
 
-		listOfTraffic = trafficRepository.findAllByuserId(userId);
+		listOfTraffic = trafficRepository.findAllByUserId(userId);
 
 		if (listOfTraffic.isEmpty()) {
 			throw new UserNotFoundException(userId);

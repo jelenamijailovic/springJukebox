@@ -43,7 +43,7 @@ public class ArtistService {
 
 		List<Artist> listOfArtists = new ArrayList<Artist>();
 
-		listOfArtists = artistRepository.findArtistsByGenre(genreId);
+		listOfArtists = artistRepository.findArtistsByGenreId(genreId);
 
 		if (listOfArtists.isEmpty()) {
 			throw new EmptyListException();

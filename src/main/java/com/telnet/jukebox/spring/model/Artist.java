@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name= "artists")
 public class Artist implements Serializable {
@@ -34,6 +36,7 @@ public class Artist implements Serializable {
 	private Genre genre;
 
 	@OneToMany(mappedBy = "artist")
+    @JsonIgnore
 	private List<Song> songs;
 
 	public Artist() {

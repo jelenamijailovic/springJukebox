@@ -12,11 +12,11 @@ import com.telnet.jukebox.spring.model.Song;
 @Repository
 public interface SongRepository extends PagingAndSortingRepository<Song, Long> {
 
-	public List<Song> findSongsByArtist(Long artistId);
+	public List<Song> findSongsByArtistId(Long artistId);
 
 //	public List<Song> findSongsByGenre(Long genreId);
 
-	public List<Song> findSongsByPrice(Long priceId);
+	public List<Song> findSongsByPriceId(Long priceId);
 
 	//public Page<Song> songList(Pageable pageable);
 

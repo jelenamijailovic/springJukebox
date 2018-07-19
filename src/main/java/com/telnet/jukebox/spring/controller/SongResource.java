@@ -161,7 +161,7 @@ public class SongResource {
 	@GetMapping("/{songId}/traffic")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public List<TrafficDTO> getSviPrometiPoPesmi(@PathVariable Long songId) {
+	public List<TrafficDTO> getTrafficBySong(@PathVariable Long songId) {
 		// logger.info("Prikaz prometa za pesmu sa id-om " + pesmaId);
 
 		List<TrafficDTO> listOfTraffic = new ArrayList<TrafficDTO>();

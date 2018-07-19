@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.telnet.jukebox.spring.dto.ArtistDTO;
 import com.telnet.jukebox.spring.dto.GenreDTO;
 import com.telnet.jukebox.spring.dto.SongDTO;
 import com.telnet.jukebox.spring.exceptions.BadEntryException;
 import com.telnet.jukebox.spring.exceptions.EmptyListException;
 import com.telnet.jukebox.spring.exceptions.GenreNotFoundException;
+import com.telnet.jukebox.spring.service.ArtistService;
 import com.telnet.jukebox.spring.service.GenreService;
 import com.telnet.jukebox.spring.service.SongService;
 
@@ -34,7 +36,7 @@ public class GenreResource {
 	GenreService genreService;
 
 	@Autowired
-	SongService songService;
+	ArtistService artistService;
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
@@ -112,6 +114,22 @@ public class GenreResource {
 		} catch (GenreNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@GetMapping("/{genreId}/artists")
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public List<ArtistDTO> getArtistsByGenre(@PathVariable Long genreId) {
+		// logger.info("Prikaz pesama za izvodjaca sa id-om " + artistId);
+
+		List<ArtistDTO> listOfArtists= new ArrayList<ArtistDTO>();
+		try {
+			listOfArtists = artistService.getArtistsByGenre(genreId);
+		} catch (EmptyListException e) {
+			e.printStackTrace();
+		}
+
+		return listOfArtists;
 	}
 
 	/*@GetMapping("/{genreId}/songs")

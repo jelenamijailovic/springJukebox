@@ -10,6 +10,7 @@ import com.telnet.jukebox.spring.model.Artist;
 @Repository
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
-	public List<Artist> findArtistsByGenre(Long genreId);
+	public List<Artist> findArtistsByGenreId(Long genreId);
+	public Artist findArtistById(Long artistId);
 	
 }

@@ -116,7 +116,7 @@ public class ArtistResource {
 	@GetMapping("/{artistId}/songs")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public List<SongDTO> getSvePesmePoIzvodjacu(@PathVariable Long artistId) {
+	public List<SongDTO> getSongsByArtist(@PathVariable Long artistId) {
 		// logger.info("Prikaz pesama za izvodjaca sa id-om " + artistId);
 
 		List<SongDTO> listOfSongs= new ArrayList<SongDTO>();

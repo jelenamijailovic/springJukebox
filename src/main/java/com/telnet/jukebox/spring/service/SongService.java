@@ -29,7 +29,7 @@ public class SongService {
 
 		List<Song> listOfSongs = new ArrayList<Song>();
 
-		listOfSongs = songRepository.findSongsByArtist(artistId);
+		listOfSongs = songRepository.findSongsByArtistId(artistId);
 
 		if (listOfSongs.isEmpty()) {
 			throw new EmptyListException();
@@ -67,7 +67,7 @@ public class SongService {
 
 		List<Song> listOfSongs = new ArrayList<Song>();
 
-		listOfSongs = songRepository.findSongsByPrice(priceId);
+		listOfSongs = songRepository.findSongsByPriceId(priceId);
 
 		if (listOfSongs.isEmpty()) {
 			throw new EmptyListException();
@@ -174,9 +174,9 @@ public class SongService {
 		// entity.setNumOfPages(song.getNumOfPages());
 		entity.setId(song.getId());
 		entity.setName(song.getName());
-		entity.setArtist(song.getArtist());
+		/*entity.setArtist(song.getArtist());
 		//entity.setGenre(song.getGenre());
-		entity.setPrice(song.getPrice());
+		entity.setPrice(song.getPrice());*/
 		return entity;
 	}
 
@@ -185,9 +185,9 @@ public class SongService {
 		// dto.setNumOfPages(song.getNumOfPages());
 		dto.setId(song.getId());
 		dto.setName(song.getName());
-		dto.setArtist(song.getArtist());
+	/*	dto.setArtist(song.getArtist());
 		//dto.setGenre(song.getGenre());
-		dto.setPrice(song.getPrice());
+		dto.setPrice(song.getPrice());*/
 		return dto;
 	}
 
