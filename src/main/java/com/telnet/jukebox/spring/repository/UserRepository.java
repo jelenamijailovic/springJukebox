@@ -8,6 +8,6 @@ import com.telnet.jukebox.spring.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	public User findUserByEmail(String email);
+	public User findByEmail(String email);
 	
 }

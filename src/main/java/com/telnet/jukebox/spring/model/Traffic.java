@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name= "traffic")
 public class Traffic implements Serializable {
@@ -47,8 +49,8 @@ public class Traffic implements Serializable {
 	@Autowired
 	private Artist artist;*/
 
-	@Column(name="user_id")
-	private Long userId; 
+	/*@Column(name="user_id")
+	private Long userId; */
 	
 	
 	@ManyToOne
@@ -186,12 +188,12 @@ public class Traffic implements Serializable {
 		return true;
 	}
 
-	public Long getUserId() {
+	/*public Long getUserId() {
 		return userId;
 	}
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
-	}
+	}*/
 
 }

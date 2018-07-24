@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.telnet.jukebox.spring.dto.ArtistDTO;
-import com.telnet.jukebox.spring.exceptions.ArtistNotFoundException;
-import com.telnet.jukebox.spring.exceptions.BadEntryException;
 import com.telnet.jukebox.spring.exceptions.EmptyListException;
 import com.telnet.jukebox.spring.model.Artist;
 import com.telnet.jukebox.spring.repository.ArtistRepository;
@@ -57,41 +56,29 @@ public class ArtistService {
 		}
 	}
 
-	public ArtistDTO getArtist(Long artistId) throws ArtistNotFoundException {
-		Artist artist = new Artist();
-		artist = artistRepository.findById(artistId).get();
+	public List<ArtistDTO> getTop5Artists() throws EmptyListException {
+		List<ArtistDTO> listOfTrafficDTO = new ArrayList<ArtistDTO>();
 
-		if (artist.equals(null)) {
-			throw new ArtistNotFoundException(artistId);
+		List<Artist> listOfTraffic = new ArrayList<Artist>();
+
+		listOfTraffic = artistRepository.findTop5Artists(PageRequest.of(0, 5)).getContent();
+
+		if (listOfTraffic.isEmpty()) {
+			throw new EmptyListException();
 		} else {
-			return entityToDTO(artist);
+
+			for (int i = 0; i < listOfTraffic.size(); i++) {
+				listOfTrafficDTO.add(entityToDTO(listOfTraffic.get(i)));
+			}
+			return listOfTrafficDTO;
 		}
-
-	}
-
-	public ArtistDTO addArtist(ArtistDTO artist) throws BadEntryException {
-		return entityToDTO(artistRepository.save(DTOToEntity(artist)));
-	}
-
-	public ArtistDTO updateArtist(ArtistDTO artist) throws BadEntryException {
-		return entityToDTO(artistRepository.save(DTOToEntity(artist)));
-	}
-
-	public void deleteArtist(Long id) throws ArtistNotFoundException {
-		artistRepository.deleteById(id);
-	}
-
-	public Artist DTOToEntity(ArtistDTO artist) {
-		Artist entity = new Artist();
-		entity.setId(artist.getId());
-		entity.setName(artist.getName());
-		return entity;
 	}
 
 	public ArtistDTO entityToDTO(Artist artist) {
 		ArtistDTO dto = new ArtistDTO();
 		dto.setId(artist.getId());
 		dto.setName(artist.getName());
+		dto.setGenre(artist.getGenre().getName());
 		return dto;
 	}
 }

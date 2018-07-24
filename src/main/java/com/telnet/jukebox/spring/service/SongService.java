@@ -2,27 +2,37 @@ package com.telnet.jukebox.spring.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.jaxb.SpringDataJaxb.PageDto;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.telnet.jukebox.spring.dto.SongDTO;
-import com.telnet.jukebox.spring.exceptions.BadEntryException;
 import com.telnet.jukebox.spring.exceptions.EmptyListException;
-import com.telnet.jukebox.spring.exceptions.SongNotFoundException;
+import com.telnet.jukebox.spring.exceptions.UserNotFoundException;
+import com.telnet.jukebox.spring.model.Artist;
+import com.telnet.jukebox.spring.model.Genre;
 import com.telnet.jukebox.spring.model.Song;
+import com.telnet.jukebox.spring.model.Traffic;
+import com.telnet.jukebox.spring.repository.GenreRepository;
 import com.telnet.jukebox.spring.repository.SongRepository;
+import com.telnet.jukebox.spring.repository.TrafficRepository;
 
 @Service
 public class SongService {
 
 	@Autowired
 	SongRepository songRepository;
+
+	@Autowired
+	GenreRepository genreRepository;
+
+	@Autowired
+	TrafficRepository trafficRepository;
 
 	public List<SongDTO> getSongsByArtist(Long artistId) throws EmptyListException {
 		List<SongDTO> listOfSongsDTO = new ArrayList<SongDTO>();
@@ -42,37 +52,23 @@ public class SongService {
 			return listOfSongsDTO;
 		}
 	}
-
-/*	public List<SongDTO> getSongsByGenre(Long genreId) throws EmptyListException {
+	
+	public List<SongDTO> getSongsByGenre(Long genreId) throws EmptyListException {
 		List<SongDTO> listOfSongsDTO = new ArrayList<SongDTO>();
 
 		List<Song> listOfSongs = new ArrayList<Song>();
+		
+		List<Artist> listOfArtists = new ArrayList<Artist>();
 
-		listOfSongs = songRepository.findSongsByGenre(genreId);
-
-		if (listOfSongs.isEmpty()) {
-			throw new EmptyListException();
-		} else {
-
-			for (int i = 0; i < listOfSongs.size(); i++) {
-				listOfSongsDTO.add(entityToDTO(listOfSongs.get(i)));
-			}
-
-			return listOfSongsDTO;
+		listOfArtists = genreRepository.findById(genreId).get().getArtists();
+		
+		for(int i=0; i<listOfArtists.size(); i++) {
+			listOfSongs.addAll(listOfArtists.get(i).getSongs());
 		}
-	}*/
-
-	public List<SongDTO> getSongsByPrice(Long priceId) throws EmptyListException {
-		List<SongDTO> listOfSongsDTO = new ArrayList<SongDTO>();
-
-		List<Song> listOfSongs = new ArrayList<Song>();
-
-		listOfSongs = songRepository.findSongsByPriceId(priceId);
 
 		if (listOfSongs.isEmpty()) {
 			throw new EmptyListException();
 		} else {
-
 			for (int i = 0; i < listOfSongs.size(); i++) {
 				listOfSongsDTO.add(entityToDTO(listOfSongs.get(i)));
 			}
@@ -81,52 +77,12 @@ public class SongService {
 		}
 	}
 
-	public List<SongDTO> getAllSongs() throws EmptyListException {
+	public Page<SongDTO> getAllSongsPagination(Pageable pageable) throws EmptyListException {
 		List<SongDTO> listOfSongsDTO = new ArrayList<SongDTO>();
 
 		List<Song> listOfSongs = new ArrayList<Song>();
 
-		listOfSongs = (List<Song>) songRepository.findAll();
-
-		if (listOfSongs.isEmpty()) {
-			throw new EmptyListException();
-		} else {
-
-			for (int i = 0; i < listOfSongs.size(); i++) {
-				listOfSongsDTO.add(entityToDTO(listOfSongs.get(i)));
-			}
-
-			return listOfSongsDTO;
-		}
-	}
-
-	/*public List<SongDTO> getAllSongsPagination(int page) throws EmptyListException {
-		List<SongDTO> listOfSongsDTO = new ArrayList<SongDTO>();
-
-		int offsetNum = (page - 1) * 5;
-
-		List<Song> listOfSongs = new ArrayList<Song>();
-
-		listOfSongs = songRepository.findPag(offsetNum);
-
-		if (listOfSongs.isEmpty()) {
-			throw new EmptyListException();
-		} else {
-
-			for (int i = 0; i < listOfSongs.size(); i++) {
-				listOfSongsDTO.add(entityToDTO(listOfSongs.get(i)));
-			}
-
-			return listOfSongsDTO;
-		}
-	}*/
-
-	/*public Page<SongDTO> songList(Pageable pageable) throws EmptyListException {
-		List<SongDTO> listOfSongsDTO = new ArrayList<SongDTO>();
-
-		List<Song> listOfSongs = new ArrayList<Song>();
-		
-		listOfSongs = songRepository.songList(pageable).getContent();
+		listOfSongs = songRepository.findAll(pageable).getContent();
 
 		if (listOfSongs.isEmpty()) {
 			throw new EmptyListException();
@@ -136,58 +92,88 @@ public class SongService {
 				listOfSongsDTO.add(entityToDTO(listOfSongs.get(i)));
 			}
 		}
-		
-		Page<SongDTO> pageOfSongs= new PageImpl<SongDTO>(listOfSongsDTO, pageable, listOfSongsDTO.size());
-		
+
+		Page<SongDTO> pageOfSongs = new PageImpl<SongDTO>(listOfSongsDTO, pageable,
+				songRepository.findAll(pageable).getTotalElements());
+
 		return pageOfSongs;
-		
-	}*/
-	
-	public SongDTO getSong(Long songId) throws SongNotFoundException {
-		Song song = new Song();
-		song = songRepository.findById(songId).get();
 
-		if (song.equals(null)) {
-			throw new SongNotFoundException(songId);
-		} else {
-			return entityToDTO(song);
+	}
+
+	public List<SongDTO> recomended(Long userId) throws UserNotFoundException {
+		Random randomGenerator = new Random();
+
+		List<Song> recomended = new ArrayList<Song>();
+		List<SongDTO> recomendedDTO = new ArrayList<SongDTO>();
+
+		List<Traffic> trafficByUser = trafficRepository.findTrafficByUserId(userId);
+
+		int max = 0;
+		Long genre = (long) 0;
+
+		for (int i = 0; i < trafficByUser.size(); i++) {
+			int countSongId = trafficRepository.countBySongId(trafficByUser.get(i).getSong().getId());
+			if (countSongId > max) {
+				max = countSongId;
+				genre = trafficByUser.get(i).getSong().getArtist().getGenre().getId();
+			}
+		}
+		List<Song> songsByGenre = new ArrayList<Song>();
+		Genre userGenre = genreRepository.findById(genre).get();
+		List<Artist> artistsByGenre = userGenre.getArtists();
+		for (int i = 0; i < artistsByGenre.size(); i++) {
+			Artist artist = artistsByGenre.get(i);
+			songsByGenre.addAll(artist.getSongs());
 		}
 
+		for (int br = 0; br < 3; br++) {
+			int index = randomGenerator.nextInt(songsByGenre.size());
+			Song randomSong = new Song();
+			randomSong = songsByGenre.get(index);
+			for (int i = 0; i < recomended.size(); i++) {
+				if (randomSong == recomended.get(i)) {
+					System.out.println("The song is repeated");
+					randomSong = songsByGenre.get(index + 1);
+					i = recomended.size();
+				} else {
+					randomSong = songsByGenre.get(index);
+				}
+			}
+			recomended.add(randomSong);
+		}
+
+		for (int i = 0; i < recomended.size(); i++) {
+			recomendedDTO.add(entityToDTO(recomended.get(i)));
+		}
+		return recomendedDTO;
 	}
 
-	public SongDTO addSong(SongDTO song) throws BadEntryException {
-		return entityToDTO(songRepository.save(DTOToEntity(song)));
-	}
+	public List<SongDTO> getTop5Songs() throws EmptyListException {
+		List<SongDTO> listOfTrafficDTO = new ArrayList<SongDTO>();
 
-	public SongDTO updateSong(SongDTO song) throws BadEntryException {
-		return entityToDTO(songRepository.save(DTOToEntity(song)));
-	}
+		List<Song> listOfTraffic = new ArrayList<Song>();
 
-	public void deleteSong(Long songId) throws SongNotFoundException {
-		songRepository.deleteById(songId);
-	}
+		listOfTraffic = songRepository.findTop5Songs(PageRequest.of(0, 5)).getContent();
 
-	
+		if (listOfTraffic.isEmpty()) {
+			throw new EmptyListException();
+		} else {
 
-	public Song DTOToEntity(SongDTO song) {
-		Song entity = new Song();
-		// entity.setNumOfPages(song.getNumOfPages());
-		entity.setId(song.getId());
-		entity.setName(song.getName());
-		/*entity.setArtist(song.getArtist());
-		//entity.setGenre(song.getGenre());
-		entity.setPrice(song.getPrice());*/
-		return entity;
+			for (int i = 0; i < listOfTraffic.size(); i++) {
+				listOfTrafficDTO.add(entityToDTO(listOfTraffic.get(i)));
+			}
+			return listOfTrafficDTO;
+
+		}
 	}
 
 	public SongDTO entityToDTO(Song song) {
 		SongDTO dto = new SongDTO();
-		// dto.setNumOfPages(song.getNumOfPages());
 		dto.setId(song.getId());
 		dto.setName(song.getName());
-	/*	dto.setArtist(song.getArtist());
-		//dto.setGenre(song.getGenre());
-		dto.setPrice(song.getPrice());*/
+		dto.setArtistName(song.getArtist().getName());
+		dto.setGenreName(song.getArtist().getGenre().getName());
+		dto.setPrice(song.getPrice().getPrice());
 		return dto;
 	}
 

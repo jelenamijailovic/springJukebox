@@ -4,9 +4,12 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "prices")
@@ -20,7 +23,8 @@ public class Price implements Serializable {
 	private Long id;
 	private Long price;
 
-	@OneToMany(mappedBy = "price")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "price")
+	@JsonIgnore
 	private List<Song> songs;
 
 	public Price() {

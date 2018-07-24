@@ -50,7 +50,7 @@ public class Song implements Serializable {
 	@JoinColumn(name = "price_id", nullable = false)
 	private Price price;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "song")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "song")
     @JsonIgnore
 	private List<Traffic> traffic;
 

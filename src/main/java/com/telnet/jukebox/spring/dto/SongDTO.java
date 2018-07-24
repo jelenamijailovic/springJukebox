@@ -12,7 +12,9 @@ public class SongDTO implements Serializable {
 
 	private Long id;
 	private String name;
-	private String artistName;
+	private String artist;
+	private String genre;
+
 	private Long price;
 	/*private Long numOfPages;
 
@@ -147,11 +149,11 @@ public class SongDTO implements Serializable {
 	}
 
 	public String getArtistName() {
-		return artistName;
+		return artist;
 	}
 
-	public void setArtistName(String artistName) {
-		this.artistName = artistName;
+	public void setArtistName(String artist) {
+		this.artist = artist;
 	}
 
 	public Long getPrice() {
@@ -160,6 +162,14 @@ public class SongDTO implements Serializable {
 
 	public void setPrice(Long price) {
 		this.price = price;
+	}
+	
+	public String getGenreName() {
+		return genre;
+	}
+
+	public void setGenreName(String genre) {
+		this.genre = genre;
 	}
 
 }

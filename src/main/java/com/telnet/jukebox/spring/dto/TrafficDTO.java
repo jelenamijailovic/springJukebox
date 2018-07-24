@@ -13,19 +13,24 @@ public class TrafficDTO {
 
 	private Long id;
 	private Date date;
-	private Long repetition;
+	private String song;
+	private User user;
+	private String genre;
+	private String artist;
+//	private Long repetition;
+	private Long price;
 
-	@Autowired
-	private Song song;
+	/*@Autowired
+	private Song song;*/
 
-	@Autowired
-	private Price price;
+	/*@Autowired
+	private Price price;*/
 
-	@Autowired
+	/*@Autowired
 	private Artist artist;
 
 	@Autowired
-	private User user;
+	private User user;*/
 
 	public TrafficDTO() {
 
@@ -36,11 +41,11 @@ public class TrafficDTO {
 		super();
 		this.id = id;
 		this.date = date;
-		this.song = new Song(songName);
-		this.price = new Price(price);
-		this.repetition = repetition;
-		this.artist = new Artist(artistName);
-		this.user = new User(emailUsr);
+		//this.song = new Song(songName);
+		//this.price = new Price(price);
+	//	this.repetition = repetition;
+		/*this.artist = new Artist(artistName);
+		this.user = new User(emailUsr);*/
 	}
 
 	public Long getId() {
@@ -59,31 +64,31 @@ public class TrafficDTO {
 		this.date = date;
 	}
 
-	public Long getRepetition() {
+	/*public Long getRepetition() {
 		return repetition;
 	}
 
 	public void setRepetition(Long repetition) {
 		this.repetition = repetition;
-	}
+	}*/
 
-	public Song getSong() {
+	public String getSong() {
 		return song;
 	}
 
-	public void setSong(Song song) {
+	public void setSong(String song) {
 		this.song = song;
 	}
 
-	public Price getPrice() {
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(Price price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 
-	public Artist getArtist() {
+	/*public Artist getArtist() {
 		return artist;
 	}
 
@@ -97,19 +102,19 @@ public class TrafficDTO {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
+	}*/
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((artist == null) ? 0 : artist.hashCode());
+		//result = prime * result + ((artist == null) ? 0 : artist.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
-		result = prime * result + ((repetition == null) ? 0 : repetition.hashCode());
+		//result = prime * result + ((repetition == null) ? 0 : repetition.hashCode());
 		result = prime * result + ((song == null) ? 0 : song.hashCode());
-		result = prime * result + ((user == null) ? 0 : user.hashCode());
+		//result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -122,11 +127,11 @@ public class TrafficDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		TrafficDTO other = (TrafficDTO) obj;
-		if (artist == null) {
+		/*if (artist == null) {
 			if (other.artist != null)
 				return false;
 		} else if (!artist.equals(other.artist))
-			return false;
+			return false;*/
 		if (date == null) {
 			if (other.date != null)
 				return false;
@@ -142,22 +147,46 @@ public class TrafficDTO {
 				return false;
 		} else if (!price.equals(other.price))
 			return false;
-		if (repetition == null) {
+		/*if (repetition == null) {
 			if (other.repetition != null)
 				return false;
 		} else if (!repetition.equals(other.repetition))
-			return false;
+			return false;*/
 		if (song == null) {
 			if (other.song != null)
 				return false;
 		} else if (!song.equals(other.song))
 			return false;
-		if (user == null) {
+		/*if (user == null) {
 			if (other.user != null)
 				return false;
 		} else if (!user.equals(other.user))
-			return false;
+			return false;*/
 		return true;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getArtist() {
+		return artist;
+	}
+
+	public void setArtist(String artist) {
+		this.artist= artist;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 }
