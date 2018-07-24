@@ -5,14 +5,17 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name= "users")
+@Table(name = "users")
 public class User implements Serializable {
 
 	/**
@@ -21,18 +24,19 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -8469485615142118155L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(nullable= false)
+
+	@Column(nullable = false)
 	private String password;
-	
-	@Column(nullable= false)
+
+	@Column(nullable = false)
 	private String email;
 
-	@OneToMany(mappedBy= "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@JsonIgnore
 	private List<Traffic> traffic;
-	
+
 	public User() {
 	}
 
@@ -45,7 +49,7 @@ public class User implements Serializable {
 		super();
 		this.id = id;
 	}
-	
+
 	public User(Long id, String password, String email) {
 		super();
 		this.id = id;

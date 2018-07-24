@@ -4,6 +4,7 @@ public class ArtistDTO {
 
 	private Long id;
 	private String name;
+	private String genre;
 
 	public ArtistDTO() {
 	}
@@ -64,6 +65,14 @@ public class ArtistDTO {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 }

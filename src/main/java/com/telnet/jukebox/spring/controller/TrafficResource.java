@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.telnet.jukebox.spring.dto.SongDTO;
 import com.telnet.jukebox.spring.dto.TrafficDTO;
 import com.telnet.jukebox.spring.exceptions.BadEntryException;
 import com.telnet.jukebox.spring.exceptions.EmptyListException;
@@ -23,6 +26,7 @@ import com.telnet.jukebox.spring.exceptions.ExpTokenException;
 import com.telnet.jukebox.spring.exceptions.TrafficNotFoundException;
 import com.telnet.jukebox.spring.exceptions.UserNotFoundException;
 import com.telnet.jukebox.spring.model.User;
+import com.telnet.jukebox.spring.service.SongService;
 import com.telnet.jukebox.spring.service.TrafficService;
 
 import io.jsonwebtoken.Claims;
@@ -38,81 +42,48 @@ public class TrafficResource {
 	@Autowired
 	public TrafficService trafficService;
 
-	@GetMapping
-	@ResponseStatus(HttpStatus.OK)
-	@ResponseBody
-	public List<TrafficDTO> getSviPrometi() {
-		// logger.info("Prikaz svih prometa");
+	@Autowired
+	public SongService songService;
 
-		List<TrafficDTO> listOfTrafficDTO = new ArrayList<TrafficDTO>();
-		try {
-			listOfTrafficDTO = trafficService.getAllTraffic();
-		} catch (EmptyListException e) {
-			e.printStackTrace();
-		}
+	  @CrossOrigin(origins= "*")
+	  @GetMapping
+	  @ResponseStatus(HttpStatus.OK)
+	  @ResponseBody public List<TrafficDTO> getSviPrometi() { //
+	 //logger.info("Prikaz svih prometa");
+	  
+	  List<TrafficDTO> listOfTrafficDTO = new ArrayList<TrafficDTO>(); try {
+	  listOfTrafficDTO = trafficService.getAllTraffic(); 
+	  } catch(EmptyListException e) {
+		  e.printStackTrace();
+	  }
+	 
+	  return listOfTrafficDTO; }
+	  
+	 /*@GetMapping("/{trafficId}")
+	 * 
+	 * @ResponseStatus(HttpStatus.OK)
+	 * 
+	 * @ResponseBody public TrafficDTO getPromet(@PathVariable Long trafficId) { //
+	 * logger.info("Prikaz prometa sa id-om " + trafficId);
+	 * 
+	 * TrafficDTO traffic = new TrafficDTO(); try { traffic =
+	 * trafficService.getTraffic(trafficId); } catch (TrafficNotFoundException e) {
+	 * e.printStackTrace(); }
+	 * 
+	 * return traffic; }
+	 */
 
-		return listOfTrafficDTO;
-	}
-
-	@GetMapping("/{trafficId}")
-	@ResponseStatus(HttpStatus.OK)
-	@ResponseBody
-	public TrafficDTO getPromet(@PathVariable Long trafficId) {
-		// logger.info("Prikaz prometa sa id-om " + trafficId);
-
-		TrafficDTO traffic = new TrafficDTO();
-		try {
-			traffic = trafficService.getTraffic(trafficId);
-		} catch (TrafficNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		return traffic;
-	}
-
-	/*@GetMapping("/top5songs")
-	@ResponseStatus(HttpStatus.OK)
-	@ResponseBody
-	public List<TrafficDTO> getTop5Songs() {
-		// logger.info("Prikaz top 5 pesama");
-
-		List<TrafficDTO> listOfTraffic = new ArrayList<TrafficDTO>();
-		try {
-			listOfTraffic = trafficService.getTop5Songs();
-		} catch (EmptyListException e) {
-			e.printStackTrace();
-		}
-
-		return listOfTraffic;
-	}
-
-	@GetMapping("/top5artists")
-	@ResponseStatus(HttpStatus.OK)
-	@ResponseBody
-	public List<TrafficDTO> getTop5Artists() {
-		// logger.info("Prikaz top 5 izvodjaca");
-
-		List<TrafficDTO> listOfTraffic = new ArrayList<TrafficDTO>();
-		try {
-			listOfTraffic = trafficService.getTop5Artists();
-		} catch (EmptyListException e) {
-			e.printStackTrace();
-		}
-
-		return listOfTraffic;
-	}*/
-
+	@CrossOrigin(origins= "*")
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public void addTraffic(@RequestHeader("Authorization") String authorization, @RequestBody TrafficDTO traffic) {
 		// logger.info("Unosenje prometa");
-
-		// String authenticationheader =
-		// requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
-		System.out.println(authorization);
+		
+		System.out.println(authorization); 
+		
 		// logger.info(authorization);
 
-		Jws<Claims> claims = Jwts.parser().setSigningKey("sifra".getBytes()).parseClaimsJws(authorization);
+		Jws<Claims> claims = Jwts.parser().setSigningKey("password".getBytes()).parseClaimsJws(authorization);
 
 		Long id = (Long) claims.getBody().get("id");
 		traffic.setUser(new User(id));
@@ -129,7 +100,7 @@ public class TrafficResource {
 
 	}
 
-	@DeleteMapping("/{trafficId}")
+	/*@DeleteMapping("/{trafficId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteTraffic(@PathVariable Long trafficId) {
 		// logger.info("Brisanje prometa sa id-om " + prometId);
@@ -140,26 +111,27 @@ public class TrafficResource {
 			e.printStackTrace();
 		}
 
-	}
-	
+	}*/
+
+	@CrossOrigin(origins= "*")
 	@GetMapping("/recomended")
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public List<TrafficDTO> recomended(@RequestHeader("Authorization") String authorization) {
+	public List<SongDTO> recomended(@RequestHeader("Authorization") String authorization) {
 		// logger.info("Preporucujemo");
 
 		Jws<Claims> claims = Jwts.parser().setSigningKey("password".getBytes()).parseClaimsJws(authorization);
 
 		Long id = (Long) claims.getBody().get("id");
 
-		List<TrafficDTO> listOfTraffic = new ArrayList<TrafficDTO>();
+		List<SongDTO> listOfSongs = new ArrayList<SongDTO>();
 		try {
-			listOfTraffic = trafficService.recomended(id);
+			listOfSongs = songService.recomended(id);
 		} catch (UserNotFoundException e) {
 			e.printStackTrace();
 		}
 
-		return listOfTraffic;
+		return listOfSongs;
 
 	}
 

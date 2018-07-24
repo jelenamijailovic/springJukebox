@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "songs")
@@ -48,7 +50,8 @@ public class Song implements Serializable {
 	@JoinColumn(name = "price_id", nullable = false)
 	private Price price;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "song")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "song")
+    @JsonIgnore
 	private List<Traffic> traffic;
 
 	public Song() {
