@@ -118,4 +118,11 @@ public class Artist implements Serializable {
 		this.songs = songs;
 	}
 
+/*	@Override
+	public String toString() {
+		return "Artist [id=" + id + ", name=" + name + ", genre=" + genre + ", songs=" + songs + "]";
+	}*/
+	
+	
+
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.telnet.jukebox.spring.dto.GenreDTO;
 import com.telnet.jukebox.spring.dto.SongDTO;
@@ -22,6 +23,7 @@ import com.telnet.jukebox.spring.service.SongService;
 
 @RestController
 @RequestMapping("/genres")
+@EnableWebMvc
 public class GenreResource {
 
 	// final static Logger logger = Logger.getLogger(GenreResource.class);

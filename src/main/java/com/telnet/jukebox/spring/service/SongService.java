@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -171,9 +173,8 @@ public class SongService {
 		SongDTO dto = new SongDTO();
 		dto.setId(song.getId());
 		dto.setName(song.getName());
-		dto.setArtistName(song.getArtist().getName());
-		dto.setGenreName(song.getArtist().getGenre().getName());
-		dto.setPrice(song.getPrice().getPrice());
+		dto.setArtist(song.getArtist());
+		dto.setPrice(song.getPrice());
 		return dto;
 	}
 

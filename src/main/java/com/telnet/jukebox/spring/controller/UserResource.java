@@ -2,6 +2,7 @@ package com.telnet.jukebox.spring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -59,18 +60,21 @@ public class UserResource {
 
 	@CrossOrigin(origins= "*")
 	@PostMapping
+	@PreAuthorize("hasAuthority('add:users')")
 	@ResponseStatus(HttpStatus.CREATED)
-	public void addUser(@RequestBody UserDTO user) {
+	public UserDTO addUser(@RequestBody UserDTO user) {
 		// logger.info("Unosenje korisnika");
 
 		try {
-			userService.addUser(user);
+			return userService.addUser(user);
 		} catch (BadEntryException e) {
 			e.printStackTrace();
+			return null;
 		}
+		 
 
 	}
-
+/*
 	@CrossOrigin(origins= "*")
 	@PostMapping("/login")
 	@ResponseStatus(HttpStatus.ACCEPTED)
@@ -84,7 +88,7 @@ public class UserResource {
 			e.printStackTrace();
 		}
 		return jwt;
-	}
+	}*/
 
 	/*
 	 * @GetMapping("/{userId}/traffic")

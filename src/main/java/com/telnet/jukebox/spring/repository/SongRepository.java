@@ -16,7 +16,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 	public List<Song> findSongsByArtistId(Long artistId);
 	public List<Song> findSongsByPriceId(Long priceId);
 
-	@Query("SELECT distinct s FROM com.telnet.jukebox.spring.model.Traffic t INNER JOIN t.song s GROUP BY s ORDER BY count(t.song) DESC")
+	@Query("SELECT s FROM com.telnet.jukebox.spring.model.Traffic t INNER JOIN t.song s GROUP BY s ORDER BY count(t.song) DESC")
 	public Page<Song> findTop5Songs(Pageable pageable);
 
 }

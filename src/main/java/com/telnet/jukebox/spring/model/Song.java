@@ -32,15 +32,6 @@ public class Song implements Serializable {
 
 	@Column(nullable = false)
 	private String name;
-	// private String artistName;
-	// private String genreName;
-	// private int price;
-	// private int artistId;
-	// private int priceId;
-	// private Long numOfPages;
-
-	/*@Autowired
-	private Genre genre;*/
 
 	@ManyToOne
 	@JoinColumn(name = "artist_id", nullable = false)
@@ -68,7 +59,6 @@ public class Song implements Serializable {
 		this.id = id;
 		this.name = name;
 		this.artist = new Artist(artistName);
-		//this.genre = new Genre(genreName);
 		this.price = new Price(price);
 	}
 
@@ -87,21 +77,7 @@ public class Song implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	/*
-	 * public Long getNumOfPages() { return numOfPages; }
-	 * 
-	 * public void setNumOfPages(Long numOfPages) { this.numOfPages = numOfPages; }
-	 */
-
-	/*public Genre getGenre() {
-		return genre;
-	}
-
-	public void setGenre(Genre genre) {
-		this.genre = genre;
-	}*/
-
+	
 	public Artist getArtist() {
 		return artist;
 	}
@@ -118,16 +94,23 @@ public class Song implements Serializable {
 		this.price = price;
 	}
 
+	public List<Traffic> getTraffic() {
+		return traffic;
+	}
+
+	public void setTraffic(List<Traffic> traffic) {
+		this.traffic = traffic;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((artist == null) ? 0 : artist.hashCode());
-	//	result = prime * result + ((genre == null) ? 0 : genre.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		// result = prime * result + ((numOfPages == null) ? 0 : numOfPages.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((traffic == null) ? 0 : traffic.hashCode());
 		return result;
 	}
 
@@ -145,11 +128,6 @@ public class Song implements Serializable {
 				return false;
 		} else if (!artist.equals(other.artist))
 			return false;
-		/*if (genre == null) {
-			if (other.genre != null)
-				return false;
-		} else if (!genre.equals(other.genre))
-			return false;*/
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -160,24 +138,25 @@ public class Song implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		/*
-		 * if (numOfPages == null) { if (other.numOfPages != null) return false; } else
-		 * if (!numOfPages.equals(other.numOfPages)) return false;
-		 */
 		if (price == null) {
 			if (other.price != null)
 				return false;
 		} else if (!price.equals(other.price))
 			return false;
+		if (traffic == null) {
+			if (other.traffic != null)
+				return false;
+		} else if (!traffic.equals(other.traffic))
+			return false;
 		return true;
 	}
 
-	public List<Traffic> getTraffic() {
-		return traffic;
+	@Override
+	public String toString() {
+		return "Song [id=" + id + ", name=" + name + ", artist=" + artist + ", price=" + price + ", traffic=" + traffic
+				+ "]";
 	}
-
-	public void setTraffic(List<Traffic> traffic) {
-		this.traffic = traffic;
-	}
+	
+	
 
 }

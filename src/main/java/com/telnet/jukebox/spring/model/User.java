@@ -126,4 +126,11 @@ public class User implements Serializable {
 		this.traffic = traffic;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", password=" + password + ", email=" + email + ", traffic=" + traffic + "]";
+	}
+	
+	
+
 }

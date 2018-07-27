@@ -3,6 +3,8 @@ package com.telnet.jukebox.spring.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -124,11 +126,7 @@ public class TrafficService {
 		TrafficDTO dto = new TrafficDTO();
 		dto.setId(traffic.getId());
 		dto.setDate(traffic.getDate());
-		dto.setSong(traffic.getSong().getName());
-		dto.setPrice(traffic.getSong().getPrice().getPrice());
-		// dto.setRepetition(traffic.getRepetition());
-		dto.setArtist(traffic.getSong().getArtist().getName());
-		dto.setGenre(traffic.getSong().getArtist().getGenre().getName());
+		dto.setSong(traffic.getSong());
 		dto.setUser(traffic.getUser());
 		return dto;
 	}

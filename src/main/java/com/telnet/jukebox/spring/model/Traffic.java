@@ -3,6 +3,7 @@ package com.telnet.jukebox.spring.model;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,10 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name= "traffic")
@@ -31,44 +28,24 @@ public class Traffic implements Serializable {
 	
 	@Column(nullable= false)
 	private Date date;
-	// private int songId;
-	// private String songName;
-	// private int price;
-	//private Long repetition;
-	// private String artistName;
-	// private int idUsr;
-	// private String emailUsr;
 
 	@ManyToOne
 	@JoinColumn(name= "song_id", nullable= false)
 	private Song song;
 
-	/*@Autowired
-	private Price price;
-
-	@Autowired
-	private Artist artist;*/
-
-	/*@Column(name="user_id")
-	private Long userId; */
-	
-	
-	@ManyToOne
-	@JoinColumn(name= "user_id", nullable= false, insertable= false, updatable= false)
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name= "user_id", nullable= false)
 	private User user;
 
 	public Traffic() {
 	}
 
-	public Traffic(Long id, Date date, String songName, Long price, String artistName,
+	public Traffic(Long id, Date date, String songName, 
 			String emailUsr) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.song = new Song(songName);
-		//this.price = new Price(price);
-		//this.repetition = repetition;
-		//this.artist = new Artist(artistName);
 		this.user = new User(emailUsr);
 	}
 
@@ -88,14 +65,6 @@ public class Traffic implements Serializable {
 		this.date = date;
 	}
 
-	/*public Long getRepetition() {
-		return repetition;
-	}
-
-	public void setRepetition(Long repetition) {
-		this.repetition = repetition;
-	}*/
-
 	public Song getSong() {
 		return song;
 	}
@@ -103,22 +72,6 @@ public class Traffic implements Serializable {
 	public void setSong(Song song) {
 		this.song = song;
 	}
-
-	/*public Price getPrice() {
-		return price;
-	}
-
-	public void setPrice(Price price) {
-		this.price = price;
-	}
-
-	public Artist getArtist() {
-		return artist;
-	}
-
-	public void setArtist(Artist artist) {
-		this.artist = artist;
-	}*/
 
 	public User getUser() {
 		return user;
@@ -132,11 +85,8 @@ public class Traffic implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		//result = prime * result + ((artist == null) ? 0 : artist.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		//result = prime * result + ((price == null) ? 0 : price.hashCode());
-		//result = prime * result + ((repetition == null) ? 0 : repetition.hashCode());
 		result = prime * result + ((song == null) ? 0 : song.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
@@ -151,11 +101,6 @@ public class Traffic implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Traffic other = (Traffic) obj;
-		/*if (artist == null) {
-			if (other.artist != null)
-				return false;
-		} else if (!artist.equals(other.artist))
-			return false;*/
 		if (date == null) {
 			if (other.date != null)
 				return false;
@@ -166,15 +111,6 @@ public class Traffic implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		/*if (price == null) {
-			if (other.price != null)
-				return false;
-		} else if (!price.equals(other.price))
-			return false;*/
-		/*
-		 * if (repetition == null) { if (other.repetition != null) return false; } else
-		 * if (!repetition.equals(other.repetition)) return false;
-		 */
 		if (song == null) {
 			if (other.song != null)
 				return false;
@@ -188,12 +124,11 @@ public class Traffic implements Serializable {
 		return true;
 	}
 
-	/*public Long getUserId() {
-		return userId;
+	@Override
+	public String toString() {
+		return "Traffic [id=" + id + ", date=" + date + ", song=" + song + ", user=" + user + "]";
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}*/
+	
 
 }

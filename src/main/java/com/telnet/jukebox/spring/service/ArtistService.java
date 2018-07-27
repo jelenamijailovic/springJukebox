@@ -3,6 +3,8 @@ package com.telnet.jukebox.spring.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -78,7 +80,7 @@ public class ArtistService {
 		ArtistDTO dto = new ArtistDTO();
 		dto.setId(artist.getId());
 		dto.setName(artist.getName());
-		dto.setGenre(artist.getGenre().getName());
+		dto.setGenre(artist.getGenre());
 		return dto;
 	}
 }

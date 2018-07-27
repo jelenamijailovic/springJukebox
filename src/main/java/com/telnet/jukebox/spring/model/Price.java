@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,6 +22,7 @@ public class Price implements Serializable {
 	 */
 	private static final long serialVersionUID = 5704823286450521883L;
 	@Id
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	private Long id;
 	private Long price;
 
@@ -95,5 +98,12 @@ public class Price implements Serializable {
 	public void setSongs(List<Song> songs) {
 		this.songs = songs;
 	}
+
+	@Override
+	public String toString() {
+		return "Price [id=" + id + ", price=" + price + ", songs=" + songs + "]";
+	}
+	
+	
 
 }

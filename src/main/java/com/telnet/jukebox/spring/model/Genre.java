@@ -15,7 +15,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name= "genres")
+@Table(name = "genres")
 public class Genre implements Serializable {
 
 	/**
@@ -24,13 +24,13 @@ public class Genre implements Serializable {
 	private static final long serialVersionUID = 7343628052408413218L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(nullable= false)
+
+	@Column(nullable = false)
 	private String name;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy= "genre")
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "genre")
 	@JsonIgnore
 	private List<Artist> artists;
 
@@ -102,5 +102,11 @@ public class Genre implements Serializable {
 	public void setArtists(List<Artist> artists) {
 		this.artists = artists;
 	}
+	/*
+	@Override
+	public String toString() {
+		return "Genre [id=" + id + ", name=" + name + ", artists=" + artists + "]";
+	}*/
+
 
 }
