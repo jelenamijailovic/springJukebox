@@ -66,4 +66,9 @@ public class GenreDTO {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "GenreDTO [id=" + id + ", name=" + name + "]";
+	}
+
 }

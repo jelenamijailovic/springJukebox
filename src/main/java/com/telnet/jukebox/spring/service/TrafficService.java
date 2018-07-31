@@ -3,8 +3,6 @@ package com.telnet.jukebox.spring.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +10,6 @@ import com.telnet.jukebox.spring.dto.TrafficDTO;
 import com.telnet.jukebox.spring.exceptions.BadEntryException;
 import com.telnet.jukebox.spring.exceptions.EmptyListException;
 import com.telnet.jukebox.spring.exceptions.ExpTokenException;
-import com.telnet.jukebox.spring.exceptions.SongNotFoundException;
-import com.telnet.jukebox.spring.exceptions.TrafficNotFoundException;
-import com.telnet.jukebox.spring.exceptions.UserNotFoundException;
 import com.telnet.jukebox.spring.model.Traffic;
 import com.telnet.jukebox.spring.repository.TrafficRepository;
 
@@ -23,9 +18,6 @@ public class TrafficService {
 
 	@Autowired
 	TrafficRepository trafficRepository;
-
-	@Autowired
-	UserService userService = new UserService();
 
 	public List<TrafficDTO> getAllTraffic() throws EmptyListException {
 		List<TrafficDTO> listOfTrafficDTO = new ArrayList<TrafficDTO>();
@@ -45,55 +37,6 @@ public class TrafficService {
 		return listOfTrafficDTO;
 	}
 
-	/*
-	public List<TrafficDTO> getTrafficBySong(Long songId) throws SongNotFoundException {
-		List<TrafficDTO> listOfTrafficDTO = new ArrayList<TrafficDTO>();
-
-		List<Traffic> listOfTraffic = new ArrayList<Traffic>();
-
-		listOfTraffic = trafficRepository.findTrafficBySongId(songId);
-
-		if (listOfTraffic.isEmpty()) {
-			throw new SongNotFoundException(songId);
-		} else {
-			for (int i = 0; i < listOfTraffic.size(); i++) {
-				listOfTrafficDTO.add(entityToDTO(listOfTraffic.get(i)));
-			}
-		}
-
-		return listOfTrafficDTO;
-	}
-
-	public List<TrafficDTO> getTrafficByUser(Long userId) throws UserNotFoundException {
-		List<TrafficDTO> listOfTrafficDTO = new ArrayList<TrafficDTO>();
-
-		List<Traffic> listOfTraffic = new ArrayList<Traffic>();
-
-		listOfTraffic = trafficRepository.findTrafficByUserId(userId);
-
-		if (listOfTraffic.isEmpty()) {
-			throw new UserNotFoundException(userId);
-		} else {
-			for (int i = 0; i < listOfTraffic.size(); i++) {
-				listOfTrafficDTO.add(entityToDTO(listOfTraffic.get(i)));
-			}
-			return listOfTrafficDTO;
-		}
-
-	}
-
-	public TrafficDTO getTraffic(Long trafficId) throws TrafficNotFoundException {
-		Traffic traffic = new Traffic();
-		traffic = trafficRepository.findById(trafficId).get();
-
-		if (traffic.equals(null)) {
-			throw new TrafficNotFoundException(trafficId);
-		} else {
-			return entityToDTO(traffic);
-		}
-
-	}*/
-
 	public TrafficDTO addTraffic(TrafficDTO traffic) throws BadEntryException, ExpTokenException {
 
 		java.util.Date datum = new java.util.Date();
@@ -106,19 +49,12 @@ public class TrafficService {
 		return newTraffic;
 	}
 
-	/*public void deleteTraffic(Long trafficId) throws TrafficNotFoundException {
-		trafficRepository.deleteById(trafficId);
-	}*/
-
 	public Traffic DTOToEntity(TrafficDTO traffic) {
 		Traffic entity = new Traffic();
 		entity.setId(traffic.getId());
 		entity.setDate(traffic.getDate());
-		// entity.setSong(traffic.getSong());
-		// entity.setPrice(traffic.getPrice());
-		// entity.setRepetition(traffic.getRepetition());
-		// entity.setArtist(traffic.getArtist());
-		// entity.setUser(traffic.getUser().);
+		entity.setSong(traffic.getSong());
+		entity.setUser(traffic.getUser());
 		return entity;
 	}
 

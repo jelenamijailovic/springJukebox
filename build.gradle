@@ -49,7 +49,7 @@ dependencies {
  // compile ('org.springframework.boot:spring-boot-starter-log4j2')
 	//compile('org.springframework.boot:spring-boot-starter-security')
 	//compile 'com.auth0:auth0-spring-security-api:1.0.0-rc.3'
-compile group: 'com.auth0', name: 'auth0-spring-security-api', version: '1.0.0-rc.3'
+//compile group: 'com.auth0', name: 'auth0-spring-security-api', version: '1.0.0-rc.3'
 	
 //compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
 	compile "com.auth0:java-jwt:3.3.0"
@@ -61,5 +61,8 @@ compile group: 'com.auth0', name: 'auth0-spring-security-api', version: '1.0.0-r
 	testCompile('com.h2database:h2')
 	// https://mvnrepository.com/artifact/com.h2database/h2
 //testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'
+
+compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.8.0'
+compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.8.0'
 	
 }

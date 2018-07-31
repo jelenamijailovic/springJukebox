@@ -102,11 +102,10 @@ public class Genre implements Serializable {
 	public void setArtists(List<Artist> artists) {
 		this.artists = artists;
 	}
-	/*
+
 	@Override
 	public String toString() {
 		return "Genre [id=" + id + ", name=" + name + ", artists=" + artists + "]";
-	}*/
-
+	}
 
 }

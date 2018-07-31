@@ -1,16 +1,10 @@
 package com.telnet.jukebox.spring.dto;
 
-import java.io.Serializable;
-
 import com.telnet.jukebox.spring.model.Artist;
 import com.telnet.jukebox.spring.model.Price;
 
-public class SongDTO implements Serializable {
+public class SongDTO {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8179264065258922840L;
 	private Long id;
 	private String name;
 	private Artist artist;
@@ -102,6 +96,11 @@ public class SongDTO implements Serializable {
 		} else if (!price.equals(other.price))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "SongDTO [id=" + id + ", name=" + name + ", artist=" + artist + ", price=" + price + "]";
 	}
 
 }

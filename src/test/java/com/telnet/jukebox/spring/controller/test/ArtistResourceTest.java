@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telnet.jukebox.spring.controller.ArtistResource;
 import com.telnet.jukebox.spring.dto.ArtistDTO;
+import com.telnet.jukebox.spring.model.Genre;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=ArtistResource.class,secure = false)
@@ -35,13 +36,19 @@ public class ArtistResourceTest {
 
    @Test
    public void getArtists() throws Exception {
+	   Genre mockGenre= new Genre();
+	   mockGenre.setId((long) 1);
+	   mockGenre.setName("genre");
+	   
        ArtistDTO mockArtist1 = new ArtistDTO();
        mockArtist1.setId((long) 1);
-       mockArtist1.setName("noviIzvodjac1");
+       mockArtist1.setName("artist1");
+       mockArtist1.setGenre(mockGenre);
        
        ArtistDTO mockArtist2 = new ArtistDTO();
        mockArtist2.setId((long) 2);
-       mockArtist2.setName("noviIzvodjac2");
+       mockArtist2.setName("artist2");
+       mockArtist2.setGenre(mockGenre);
        
        List<ArtistDTO> mockList= new ArrayList<ArtistDTO>();
        mockList.add(mockArtist1);

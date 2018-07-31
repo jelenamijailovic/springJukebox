@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telnet.jukebox.spring.controller.TrafficResource;
 import com.telnet.jukebox.spring.dto.TrafficDTO;
 import com.telnet.jukebox.spring.model.Song;
-import com.telnet.jukebox.spring.model.User;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value=TrafficResource.class,secure = false)
@@ -38,7 +37,7 @@ public class TrafficResourceTest {
        mockTraffic1.setId((long) 1);
        mockTraffic1.setDate(new java.sql.Date(new java.util.Date().getTime()));
        mockTraffic1.setSong(new Song("pesma1"));
-       mockTraffic1.setUser(new User("mrjmijailovicpz@gmail.com"));
+       //mockTraffic1.setUser(new User("mrjmijailovicpz@gmail.com"));
        
        Mockito.when(trafficResource.addTraffic("", new TrafficDTO())).thenReturn(mockTraffic1);
        

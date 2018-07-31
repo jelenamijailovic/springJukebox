@@ -1,4 +1,4 @@
-package com.telnet.jukebox.spring.auth0;
+/*package com.telnet.jukebox.spring.auth0;
 
 
 import org.springframework.beans.factory.annotation.Value;
@@ -41,3 +41,4 @@ public class Auth0 extends WebSecurityConfigurerAdapter {
             //  .antMatchers(HttpMethod.GET, "/api/private-scoped").hasAuthority("read:messages");
     }
 }
+*/

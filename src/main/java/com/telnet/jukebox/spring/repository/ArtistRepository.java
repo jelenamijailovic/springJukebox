@@ -14,10 +14,10 @@ import com.telnet.jukebox.spring.model.Artist;
 public interface ArtistRepository extends JpaRepository<Artist, Long> {
 
 	public List<Artist> findArtistsByGenreId(Long genreId);
+
 	public Artist findArtistById(Long artistId);
-	
+
 	@Query("SELECT a FROM com.telnet.jukebox.spring.model.Traffic t INNER JOIN t.song s INNER JOIN s.artist a GROUP BY a ORDER BY count(s.id) DESC")
 	public Page<Artist> findTop5Artists(Pageable pageable);
 
-	
 }

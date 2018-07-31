@@ -3,7 +3,6 @@ package com.telnet.jukebox.spring.model;
 import java.io.Serializable;
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "traffic")
+@Table(name = "traffic")
 public class Traffic implements Serializable {
 
 	/**
@@ -23,30 +22,28 @@ public class Traffic implements Serializable {
 	private static final long serialVersionUID = -5773971564012513934L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(nullable= false)
+
+	@Column(nullable = false)
 	private Date date;
 
-	@ManyToOne
-	@JoinColumn(name= "song_id", nullable= false)
-	private Song song;
+	@Column(nullable = false)
+	private String user;
 
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name= "user_id", nullable= false)
-	private User user;
+	@ManyToOne
+	@JoinColumn(name = "song_id", nullable = false)
+	private Song song;
 
 	public Traffic() {
 	}
 
-	public Traffic(Long id, Date date, String songName, 
-			String emailUsr) {
+	public Traffic(Long id, Date date, String songName, String user) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.song = new Song(songName);
-		this.user = new User(emailUsr);
+		this.user = user;
 	}
 
 	public Long getId() {
@@ -73,11 +70,11 @@ public class Traffic implements Serializable {
 		this.song = song;
 	}
 
-	public User getUser() {
+	public String getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 
@@ -126,9 +123,7 @@ public class Traffic implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Traffic [id=" + id + ", date=" + date + ", song=" + song + ", user=" + user + "]";
+		return "Traffic [id=" + id + ", date=" + date + ", user=" + user + ", song=" + song + "]";
 	}
-
-	
 
 }

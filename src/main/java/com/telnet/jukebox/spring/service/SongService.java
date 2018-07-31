@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -54,17 +52,17 @@ public class SongService {
 			return listOfSongsDTO;
 		}
 	}
-	
+
 	public List<SongDTO> getSongsByGenre(Long genreId) throws EmptyListException {
 		List<SongDTO> listOfSongsDTO = new ArrayList<SongDTO>();
 
 		List<Song> listOfSongs = new ArrayList<Song>();
-		
+
 		List<Artist> listOfArtists = new ArrayList<Artist>();
 
 		listOfArtists = genreRepository.findById(genreId).get().getArtists();
-		
-		for(int i=0; i<listOfArtists.size(); i++) {
+
+		for (int i = 0; i < listOfArtists.size(); i++) {
 			listOfSongs.addAll(listOfArtists.get(i).getSongs());
 		}
 
@@ -102,13 +100,13 @@ public class SongService {
 
 	}
 
-	public List<SongDTO> recomended(Long userId) throws UserNotFoundException {
+	public List<SongDTO> recomended(String user) throws UserNotFoundException {
 		Random randomGenerator = new Random();
 
 		List<Song> recomended = new ArrayList<Song>();
 		List<SongDTO> recomendedDTO = new ArrayList<SongDTO>();
 
-		List<Traffic> trafficByUser = trafficRepository.findTrafficByUserId(userId);
+		List<Traffic> trafficByUser = trafficRepository.findTrafficByUser(user);
 
 		int max = 0;
 		Long genre = (long) 0;

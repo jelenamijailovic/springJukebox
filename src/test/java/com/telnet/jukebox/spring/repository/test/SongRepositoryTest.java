@@ -23,7 +23,6 @@ import com.telnet.jukebox.spring.model.Genre;
 import com.telnet.jukebox.spring.model.Price;
 import com.telnet.jukebox.spring.model.Song;
 import com.telnet.jukebox.spring.model.Traffic;
-import com.telnet.jukebox.spring.model.User;
 import com.telnet.jukebox.spring.repository.ArtistRepository;
 import com.telnet.jukebox.spring.repository.GenreRepository;
 import com.telnet.jukebox.spring.repository.SongRepository;
@@ -196,90 +195,86 @@ public class SongRepositoryTest {
 		mockSong6.setName("novaPesma6");
 		mockSong6.setPrice(mockPrice);
 		mockSong6.setArtist(mockArtist);
-
-		User mockUser= new User();
-		mockUser.setEmail("mrjmijailovicpz@gmail.com");
-		mockUser.setPassword("marija");
 		
 		Traffic mockTraffic1= new Traffic();
 		mockTraffic1.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic1.setSong(mockSong1);
-		mockTraffic1.setUser(mockUser);
+		mockTraffic1.setUser("auth0|123456789");
 		
 		Traffic mockTraffic2= new Traffic();
 		mockTraffic2.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic2.setSong(mockSong1);
-		mockTraffic2.setUser(mockUser);
+		mockTraffic2.setUser("auth0|123456789");
 		
 		Traffic mockTraffic3= new Traffic();
 		mockTraffic3.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic3.setSong(mockSong1);
-		mockTraffic3.setUser(mockUser);
+		mockTraffic3.setUser("auth0|123456789");
 		
 		Traffic mockTraffic4= new Traffic();
 		mockTraffic4.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic4.setSong(mockSong2);
-		mockTraffic4.setUser(mockUser);
+		mockTraffic4.setUser("auth0|123456789");
 		
 		Traffic mockTraffic5= new Traffic();
 		mockTraffic5.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic5.setSong(mockSong2);
-		mockTraffic5.setUser(mockUser);
+		mockTraffic5.setUser("auth0|123456789");
 		
 		Traffic mockTraffic6= new Traffic();
 		mockTraffic6.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic6.setSong(mockSong2);
-		mockTraffic6.setUser(mockUser);
+		mockTraffic6.setUser("auth0|123456789");
 
 		Traffic mockTraffic7= new Traffic();
 		mockTraffic7.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic7.setSong(mockSong2);
-		mockTraffic7.setUser(mockUser);
+		mockTraffic7.setUser("auth0|123456789");
 		
 		Traffic mockTraffic8= new Traffic();
 		mockTraffic8.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic8.setSong(mockSong3);
-		mockTraffic8.setUser(mockUser);
+		mockTraffic8.setUser("auth0|123456789");
 		
 		Traffic mockTraffic9= new Traffic();
 		mockTraffic9.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic9.setSong(mockSong3);
-		mockTraffic9.setUser(mockUser);
+		mockTraffic9.setUser("auth0|123456789");
 		
 		Traffic mockTraffic10= new Traffic();
 		mockTraffic10.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic10.setSong(mockSong3);
-		mockTraffic10.setUser(mockUser);
+		mockTraffic10.setUser("auth0|123456789");
 		
 		Traffic mockTraffic11= new Traffic();
 		mockTraffic11.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic11.setSong(mockSong4);
-		mockTraffic11.setUser(mockUser);
+		mockTraffic11.setUser("auth0|123456789");
 		
 		Traffic mockTraffic12= new Traffic();
 		mockTraffic12.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic12.setSong(mockSong4);
-		mockTraffic12.setUser(mockUser);
+		mockTraffic12.setUser("auth0|123456789");
 		
 		Traffic mockTraffic13= new Traffic();
 		mockTraffic13.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic13.setSong(mockSong5);
-		mockTraffic13.setUser(mockUser);
+		mockTraffic13.setUser("auth0|123456789");
 		
 		Traffic mockTraffic14= new Traffic();
 		mockTraffic14.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic14.setSong(mockSong6);
-		mockTraffic14.setUser(mockUser);
+		mockTraffic14.setUser("auth0|123456789");
 		
 		Traffic mockTraffic15= new Traffic();
 		mockTraffic15.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic15.setSong(mockSong6);
-		mockTraffic15.setUser(mockUser);
+		mockTraffic15.setUser("auth0|123456789");
 		
 		Traffic mockTraffic16= new Traffic();
 		mockTraffic16.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic16.setSong(mockSong6);
-		mockTraffic16.setUser(mockUser);
+		mockTraffic16.setUser("auth0|123456789");
 		
 		entityManager.persist(mockPrice);
 

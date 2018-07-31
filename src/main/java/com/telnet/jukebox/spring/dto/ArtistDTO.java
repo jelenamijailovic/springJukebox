@@ -15,12 +15,6 @@ public class ArtistDTO {
 		super();
 		this.name = name;
 	}
-/*
-	public ArtistDTO(Long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
-	}*/
 
 	public Long getId() {
 		return id;
@@ -46,6 +40,9 @@ public class ArtistDTO {
 		this.genre = genre;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "ArtistDTO [id=" + id + ", name=" + name + ", genre=" + genre + "]";
+	}
 
 }

@@ -3,25 +3,16 @@ package com.telnet.jukebox.spring.dto;
 import java.sql.Date;
 
 import com.telnet.jukebox.spring.model.Song;
-import com.telnet.jukebox.spring.model.User;
 
 public class TrafficDTO {
 
 	private Long id;
 	private Date date;
 	private Song song;
-	private User user;
+	private String user;
 
 	public TrafficDTO() {
 
-	}
-
-	public TrafficDTO(Long id, Date date, String songName, String emailUsr) {
-		super();
-		this.id = id;
-		this.date = date;
-		this.song = new Song(songName);
-		this.user = new User(emailUsr);
 	}
 
 	public Long getId() {
@@ -48,11 +39,11 @@ public class TrafficDTO {
 		this.song = song;
 	}
 
-	public User getUser() {
+	public String getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(String user) {
 		this.user = user;
 	}
 
@@ -97,6 +88,11 @@ public class TrafficDTO {
 		} else if (!user.equals(other.user))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "TrafficDTO [id=" + id + ", date=" + date + ", song=" + song + ", user=" + user + "]";
 	}
 
 }

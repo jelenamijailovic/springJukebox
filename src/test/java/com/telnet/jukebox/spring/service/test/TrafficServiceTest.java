@@ -8,19 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.telnet.jukebox.spring.dto.SongDTO;
+import com.telnet.jukebox.spring.dto.TrafficDTO;
 import com.telnet.jukebox.spring.model.Artist;
 import com.telnet.jukebox.spring.model.Genre;
 import com.telnet.jukebox.spring.model.Price;
 import com.telnet.jukebox.spring.model.Song;
-import com.telnet.jukebox.spring.service.SongService;
+import com.telnet.jukebox.spring.model.Traffic;
+import com.telnet.jukebox.spring.service.TrafficService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SongServiceTest {
+public class TrafficServiceTest {
 
 	@Autowired
-	SongService songService;
+	TrafficService trafficService;
 
 	@Test
 	public void entityToDTO() {
@@ -43,12 +44,18 @@ public class SongServiceTest {
 		mockSong.setArtist(mockArtist);
 		mockSong.setPrice(mockPrice);
 
-		SongDTO mockSongDTO = songService.entityToDTO(mockSong);
+		Traffic mockTraffic = new Traffic();
+		mockTraffic.setId((long) 1);
+		mockTraffic.setDate(new java.sql.Date(new java.util.Date().getTime()));
+		mockTraffic.setSong(mockSong);
+		mockTraffic.setUser("auth0|123456789");
 
-		assertEquals(mockSong.getId(), mockSongDTO.getId());
-		assertEquals(mockSong.getName(), mockSongDTO.getName());
-		assertEquals(mockSong.getArtist(), mockSongDTO.getArtist());
-		assertEquals(mockSong.getPrice(), mockSongDTO.getPrice());
+		TrafficDTO mockTrafficDTO = trafficService.entityToDTO(mockTraffic);
+
+		assertEquals(mockTraffic.getId(), mockTrafficDTO.getId());
+		assertEquals(mockTraffic.getDate(), mockTrafficDTO.getDate());
+		assertEquals(mockTraffic.getSong(), mockTrafficDTO.getSong());
+		assertEquals(mockTraffic.getUser(), mockTrafficDTO.getUser());
 
 	}
 

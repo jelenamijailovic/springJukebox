@@ -15,18 +15,18 @@ import com.telnet.jukebox.spring.service.GenreService;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class GenreServiceTest {
-	
+
 	@Autowired
 	GenreService genreService;
-	
+
 	@Test
 	public void entityToDTO() {
 		Genre mockGenre = new Genre();
 		mockGenre.setId((long) 1);
 		mockGenre.setName("noviZanr1");
-		
-		GenreDTO mockGenreDTO= genreService.entityToDTO(mockGenre);
-		
+
+		GenreDTO mockGenreDTO = genreService.entityToDTO(mockGenre);
+
 		assertEquals(mockGenre.getId(), mockGenreDTO.getId());
 		assertEquals(mockGenre.getName(), mockGenreDTO.getName());
 

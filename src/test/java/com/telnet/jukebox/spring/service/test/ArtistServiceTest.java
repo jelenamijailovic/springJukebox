@@ -16,23 +16,23 @@ import com.telnet.jukebox.spring.service.ArtistService;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ArtistServiceTest {
-	
+
 	@Autowired
 	ArtistService artistService;
-	
+
 	@Test
 	public void entityToDTO() {
 		Genre mockGenre = new Genre();
 		mockGenre.setId((long) 1);
 		mockGenre.setName("noviZanr");
-		
+
 		Artist mockArtist = new Artist();
 		mockArtist.setId((long) 1);
 		mockArtist.setName("noviIzvodjac");
 		mockArtist.setGenre(mockGenre);
-		
-		ArtistDTO mockArtistDTO= artistService.entityToDTO(mockArtist);
-		
+
+		ArtistDTO mockArtistDTO = artistService.entityToDTO(mockArtist);
+
 		assertEquals(mockArtist.getId(), mockArtistDTO.getId());
 		assertEquals(mockArtist.getName(), mockArtistDTO.getName());
 		assertEquals(mockArtist.getGenre(), mockArtistDTO.getGenre());

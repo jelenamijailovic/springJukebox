@@ -11,8 +11,8 @@ public class UserNotFoundException extends ClassNotFoundException {
 	 */
 	private static final long serialVersionUID = 1530515260551930889L;
 
-	public UserNotFoundException(Long userId) {
-		System.out.println("User with id: " + userId + " doesn't exist!");
+	public UserNotFoundException(String user) {
+		System.out.println("User with id: " + user + " doesn't exist!");
 	}
 	
 }

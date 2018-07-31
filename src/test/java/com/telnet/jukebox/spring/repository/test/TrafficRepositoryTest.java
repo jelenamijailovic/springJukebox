@@ -17,7 +17,6 @@ import com.telnet.jukebox.spring.model.Genre;
 import com.telnet.jukebox.spring.model.Price;
 import com.telnet.jukebox.spring.model.Song;
 import com.telnet.jukebox.spring.model.Traffic;
-import com.telnet.jukebox.spring.model.User;
 import com.telnet.jukebox.spring.repository.TrafficRepository;
 
 @RunWith(SpringRunner.class)
@@ -47,14 +46,10 @@ public class TrafficRepositoryTest {
 		mockSong.setPrice(mockPrice);
 		mockSong.setArtist(mockArtist);
 
-		User mockUser = new User();
-		mockUser.setEmail("mrjmijailovicpz@gmail.com");
-		mockUser.setPassword("marija");
-
 		Traffic mockTraffic = new Traffic();
 		mockTraffic.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic.setSong(mockSong);
-		mockTraffic.setUser(mockUser);
+		mockTraffic.setUser("auth0|123456789");
 
 		entityManager.persist(mockPrice);
 
@@ -63,8 +58,6 @@ public class TrafficRepositoryTest {
 		entityManager.persist(mockArtist);
 
 		entityManager.persist(mockSong);
-
-		entityManager.persist(mockUser);
 
 		entityManager.persist(mockTraffic);
 
@@ -126,93 +119,85 @@ public class TrafficRepositoryTest {
 		mockSong6.setPrice(mockPrice);
 		mockSong6.setArtist(mockArtist2);
 
-		User mockUser1 = new User();
-		mockUser1.setEmail("mrjmijailovicpz@gmail.com");
-		mockUser1.setPassword("marija");
-
-		User mockUser2 = new User();
-		mockUser2.setEmail("jmijailovic95@gmail.com");
-		mockUser2.setPassword("jelena");
-
 		Traffic mockTraffic1 = new Traffic();
 		mockTraffic1.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic1.setSong(mockSong1);
-		mockTraffic1.setUser(mockUser1);
+		mockTraffic1.setUser("auth0|123456789");
 
 		Traffic mockTraffic2 = new Traffic();
 		mockTraffic2.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic2.setSong(mockSong1);
-		mockTraffic2.setUser(mockUser1);
+		mockTraffic2.setUser("auth0|123456789");
 
 		Traffic mockTraffic3 = new Traffic();
 		mockTraffic3.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic3.setSong(mockSong1);
-		mockTraffic3.setUser(mockUser1);
+		mockTraffic3.setUser("auth0|123456789");
 
 		Traffic mockTraffic4 = new Traffic();
 		mockTraffic4.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic4.setSong(mockSong2);
-		mockTraffic4.setUser(mockUser1);
+		mockTraffic4.setUser("auth0|123456789");
 
 		Traffic mockTraffic5 = new Traffic();
 		mockTraffic5.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic5.setSong(mockSong2);
-		mockTraffic5.setUser(mockUser1);
+		mockTraffic5.setUser("auth0|123456789");
 
 		Traffic mockTraffic6 = new Traffic();
 		mockTraffic6.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic6.setSong(mockSong2);
-		mockTraffic6.setUser(mockUser1);
+		mockTraffic6.setUser("auth0|123456789");
 
 		Traffic mockTraffic7 = new Traffic();
 		mockTraffic7.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic7.setSong(mockSong2);
-		mockTraffic7.setUser(mockUser1);
+		mockTraffic7.setUser("auth0|123456789");
 
 		Traffic mockTraffic8 = new Traffic();
 		mockTraffic8.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic8.setSong(mockSong3);
-		mockTraffic8.setUser(mockUser2);
+		mockTraffic8.setUser("auth0|111222333");
 
 		Traffic mockTraffic9 = new Traffic();
 		mockTraffic9.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic9.setSong(mockSong3);
-		mockTraffic9.setUser(mockUser2);
+		mockTraffic9.setUser("auth0|111222333");
 
 		Traffic mockTraffic10 = new Traffic();
 		mockTraffic10.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic10.setSong(mockSong3);
-		mockTraffic10.setUser(mockUser2);
+		mockTraffic10.setUser("auth0|111222333");
 
 		Traffic mockTraffic11 = new Traffic();
 		mockTraffic11.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic11.setSong(mockSong4);
-		mockTraffic11.setUser(mockUser1);
+		mockTraffic11.setUser("auth0|123456789");
 
 		Traffic mockTraffic12 = new Traffic();
 		mockTraffic12.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic12.setSong(mockSong4);
-		mockTraffic12.setUser(mockUser1);
+		mockTraffic12.setUser("auth0|123456789");
 
 		Traffic mockTraffic13 = new Traffic();
 		mockTraffic13.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic13.setSong(mockSong5);
-		mockTraffic13.setUser(mockUser1);
+		mockTraffic13.setUser("auth0|123456789");
 
 		Traffic mockTraffic14 = new Traffic();
 		mockTraffic14.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic14.setSong(mockSong6);
-		mockTraffic14.setUser(mockUser2);
+		mockTraffic14.setUser("auth0|111222333");
 
 		Traffic mockTraffic15 = new Traffic();
 		mockTraffic15.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic15.setSong(mockSong6);
-		mockTraffic15.setUser(mockUser2);
+		mockTraffic15.setUser("auth0|111222333");
 
 		Traffic mockTraffic16 = new Traffic();
 		mockTraffic16.setDate(new java.sql.Date(new java.util.Date().getTime()));
 		mockTraffic16.setSong(mockSong6);
-		mockTraffic16.setUser(mockUser2);
+		mockTraffic16.setUser("auth0|111222333");
 
 		entityManager.persist(mockPrice);
 
@@ -233,12 +218,6 @@ public class TrafficRepositoryTest {
 		entityManager.persist(mockSong5);
 		entityManager.persist(mockSong6);
 
-		entityManager.persist(mockUser1);
-		entityManager.persist(mockUser2);
-
-		System.out.println(mockUser1);
-		System.out.println(mockUser2);
-
 		entityManager.persist(mockTraffic1);
 		entityManager.persist(mockTraffic2);
 		entityManager.persist(mockTraffic3);
@@ -256,7 +235,7 @@ public class TrafficRepositoryTest {
 		entityManager.persist(mockTraffic15);
 		entityManager.persist(mockTraffic16);
 
-		Iterable<Traffic> trafficByUser = trafficRepository.findTrafficByUserId((long) 19);
+		Iterable<Traffic> trafficByUser = trafficRepository.findTrafficByUser("auth0|123456789");
 		List<Traffic> trafficList = new ArrayList<>();
 
 		for (Traffic traffic : trafficByUser) {
@@ -274,7 +253,7 @@ public class TrafficRepositoryTest {
 			}
 		}
 
-		assertEquals((long) 9, genre, 0.000001);
+		assertEquals((long) 8, genre, 0.000001);
 	}
 
 }

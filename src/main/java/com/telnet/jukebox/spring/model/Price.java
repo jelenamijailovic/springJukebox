@@ -22,7 +22,7 @@ public class Price implements Serializable {
 	 */
 	private static final long serialVersionUID = 5704823286450521883L;
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private Long price;
 
@@ -103,7 +103,5 @@ public class Price implements Serializable {
 	public String toString() {
 		return "Price [id=" + id + ", price=" + price + ", songs=" + songs + "]";
 	}
-	
-	
 
 }

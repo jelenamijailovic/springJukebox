@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,11 +20,17 @@ import com.telnet.jukebox.spring.exceptions.EmptyListException;
 import com.telnet.jukebox.spring.service.ArtistService;
 import com.telnet.jukebox.spring.service.SongService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @RestController
 @RequestMapping("/artists")
+@Api(value = "ArtistControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ArtistResource {
 
-	//final static Logger logger = LogManager.getLogger(ArtistResource.class);
+	// final static Logger logger = LogManager.getLogger(ArtistResource.class);
 
 	@Autowired
 	ArtistService artistService;
@@ -31,9 +38,11 @@ public class ArtistResource {
 	@Autowired
 	SongService songService;
 
-	@CrossOrigin(origins= "*")
+	@CrossOrigin(origins = "*")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation("Get all artists")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = List.class) })
 	@ResponseBody
 	public List<ArtistDTO> getAllArtists() {
 
@@ -47,12 +56,14 @@ public class ArtistResource {
 
 	}
 
-	@CrossOrigin(origins= "*")
+	@CrossOrigin(origins = "*")
 	@GetMapping("/{artistId}/songs")
 	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation("Get songs by artist")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = List.class) })
 	@ResponseBody
 	public List<SongDTO> getSongsByArtist(@PathVariable Long artistId) {
-		//logger.info("Prikaz pesama za izvodjaca sa id-om " + artistId);
+		// logger.info("Prikaz pesama za izvodjaca sa id-om " + artistId);
 
 		List<SongDTO> listOfSongs = new ArrayList<SongDTO>();
 
@@ -65,12 +76,14 @@ public class ArtistResource {
 		return listOfSongs;
 	}
 
-	@CrossOrigin(origins= "*")
+	@CrossOrigin(origins = "*")
 	@GetMapping("/top5artists")
 	@ResponseStatus(HttpStatus.OK)
+	@ApiOperation("Get top 5 artists")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = List.class) })
 	@ResponseBody
 	public List<ArtistDTO> getTop5Artists() {
-		//logger.info("Prikaz top 5 izvodjaca");
+		// logger.info("Prikaz top 5 izvodjaca");
 
 		List<ArtistDTO> listOfTraffic = new ArrayList<ArtistDTO>();
 		try {

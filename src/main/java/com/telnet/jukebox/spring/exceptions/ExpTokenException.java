@@ -4,13 +4,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.auth0.jwt.exceptions.InvalidClaimException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 
 /*import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Header;*/
 
 @ResponseStatus(HttpStatus.UNAUTHORIZED)
-public class ExpTokenException extends InvalidClaimException{
+public class ExpTokenException extends TokenExpiredException{
 
 	public ExpTokenException(String message) {
 		super(message);
