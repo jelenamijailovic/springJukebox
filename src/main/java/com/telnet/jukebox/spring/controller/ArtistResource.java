@@ -62,7 +62,7 @@ public class ArtistResource {
 	@ApiOperation("Get songs by artist")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = List.class) })
 	@ResponseBody
-	public List<SongDTO> getSongsByArtist(@PathVariable Long artistId) {
+	public List<SongDTO> getSongsByArtist(@PathVariable("artistId") Long artistId) {
 		// logger.info("Prikaz pesama za izvodjaca sa id-om " + artistId);
 
 		List<SongDTO> listOfSongs = new ArrayList<SongDTO>();

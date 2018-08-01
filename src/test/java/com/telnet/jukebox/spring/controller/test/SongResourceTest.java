@@ -1,13 +1,10 @@
 package com.telnet.jukebox.spring.controller.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -20,18 +17,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.telnet.jukebox.spring.controller.GenreResource;
 import com.telnet.jukebox.spring.controller.SongResource;
 import com.telnet.jukebox.spring.dto.SongDTO;
 import com.telnet.jukebox.spring.model.Artist;
@@ -44,6 +35,8 @@ import com.telnet.jukebox.spring.model.Traffic;
 @WebMvcTest(value = SongResource.class, secure = false)
 public class SongResourceTest {
 
+	private static final int PAGE = 1;
+	
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -111,11 +104,11 @@ public class SongResourceTest {
 		Page<SongDTO> pageOfSongs = new PageImpl<SongDTO>(mockList, PageRequest.of(0, 5, new Sort(Direction.ASC, "id")),
 				6);
 
-		Mockito.when(songResource.getAllSongsPagination(1)).thenReturn(pageOfSongs);
+		Mockito.when(songResource.getAllSongsPagination(PAGE)).thenReturn(pageOfSongs);
 
-		String URI = "/songs/pagination/1";
+		String URI = "/songs/pagination/{page}";
 
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(URI).accept(MediaType.APPLICATION_JSON);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(URI, PAGE).accept(MediaType.APPLICATION_JSON);
 
 		mockMvc.perform(requestBuilder).andExpect(status().isOk());
 	}

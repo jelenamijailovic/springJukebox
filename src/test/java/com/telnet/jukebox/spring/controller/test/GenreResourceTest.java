@@ -1,7 +1,6 @@
 package com.telnet.jukebox.spring.controller.test;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +13,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.telnet.jukebox.spring.controller.GenreResource;
 import com.telnet.jukebox.spring.dto.GenreDTO;
 import com.telnet.jukebox.spring.dto.SongDTO;
@@ -29,49 +25,45 @@ import com.telnet.jukebox.spring.model.Genre;
 import com.telnet.jukebox.spring.model.Price;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(value=GenreResource.class,secure = false)
+@WebMvcTest(value = GenreResource.class, secure = false)
 public class GenreResourceTest {
 
-   @Autowired
-   private MockMvc mockMvc;
+    private static final Long ID = 1L;
+	
+	@Autowired
+	private MockMvc mockMvc;
 
-   @MockBean
-   private GenreResource genreResource;
+	@MockBean
+	private GenreResource genreResource;
 
-   @Test
-   public void getGenres() throws Exception {
-       GenreDTO mockGenre1 = new GenreDTO();
-       mockGenre1.setId((long) 1);
-       mockGenre1.setName("noviZanr1");
-       
-       GenreDTO mockGenre2 = new GenreDTO();
-       mockGenre2.setId((long) 2);
-       mockGenre2.setName("noviZanr2");
-       
-       List<GenreDTO> mockList= new ArrayList<GenreDTO>();
-       mockList.add(mockGenre1);
-       mockList.add(mockGenre2);
-       
-       Mockito.when(genreResource.getAllGenres()).thenReturn(mockList);
-       
-       String URI= "/genres";
-       
-       RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
-				URI).accept(
-				MediaType.APPLICATION_JSON);
+	@Test
+	public void getGenres() throws Exception {
+		GenreDTO mockGenre1 = new GenreDTO();
+		mockGenre1.setId((long) 1);
+		mockGenre1.setName("genre1");
 
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+		GenreDTO mockGenre2 = new GenreDTO();
+		mockGenre2.setId((long) 2);
+		mockGenre2.setName("genre2");
 
-		String expectedJson = this.mapToJson(mockList);
-		String outputInJson = result.getResponse().getContentAsString();
-		assertThat(outputInJson).isEqualTo(expectedJson);
+		List<GenreDTO> mockList = new ArrayList<GenreDTO>();
+		mockList.add(mockGenre1);
+		mockList.add(mockGenre2);
 
-   }
-   
+		Mockito.when(genreResource.getAllGenres()).thenReturn(mockList);
+
+		String URI = "/genres";
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(URI).accept(MediaType.APPLICATION_JSON);
+
+		mockMvc.perform(requestBuilder).andExpect(status().isOk());
+
+	}
+
 	@Test
 	public void getSongByGenre() throws Exception {
 		Genre mockGenre = new Genre();
-		mockGenre.setId((long) 1);
+		mockGenre.setId(ID);
 		mockGenre.setName("genre");
 
 		Artist mockArtist = new Artist();
@@ -126,24 +118,15 @@ public class GenreResourceTest {
 		mockList.add(mockSong4);
 		mockList.add(mockSong5);
 		mockList.add(mockSong6);
+	
+		Mockito.when(genreResource.getSongsByGenre(ID)).thenReturn(mockList);
+		
+		String URI = "/genres/{genreId}/songs";
+		
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(URI, ID).accept(MediaType.APPLICATION_JSON);
 
-		Mockito.when(genreResource.getSongsByGenre((long) 1)).thenReturn(mockList);
+		mockMvc.perform(requestBuilder).andExpect(status().isOk());
 
-		String URI = "/genres/1/songs";
-
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(URI).accept(MediaType.APPLICATION_JSON);
-
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();
-
-		String expectedJson = this.mapToJson(mockList);
-		String outputInJson = result.getResponse().getContentAsString();
-		assertEquals(expectedJson, outputInJson);
-	}
-   
-   private String mapToJson(Object object) throws JsonProcessingException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		return objectMapper.writeValueAsString(object);
 	}
 
-  
 }

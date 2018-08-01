@@ -67,7 +67,7 @@ public class GenreResource {
 	@ApiOperation("Get songs by genre")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = List.class) })
 	@ResponseBody
-	public List<SongDTO> getSongsByGenre(@PathVariable Long genreId) {
+	public List<SongDTO> getSongsByGenre(@PathVariable("genreId") Long genreId) {
 		// logger.info("Prikaz pesama za zanr sa id-om " + genreId);
 
 		List<SongDTO> songs = new ArrayList<SongDTO>();

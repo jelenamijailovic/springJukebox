@@ -49,7 +49,7 @@ public class SongResource {
 	@ApiOperation("Get all songs")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = Page.class) })
 	@ResponseBody
-	public Page<SongDTO> getAllSongsPagination(@PathVariable int page) {
+	public Page<SongDTO> getAllSongsPagination(@PathVariable("page") int page) {
 		// logger.info("Prikaz svih pesama");
 
 		page = page - 1;
