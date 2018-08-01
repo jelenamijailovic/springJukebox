@@ -36,7 +36,7 @@ import com.auth0.jwt.JWT;
 
 @RestController
 @RequestMapping("/traffic")
-@Api(value = "TrafficControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(value = "TrafficControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE, tags= "Traffic")
 public class TrafficResource {
 
 	// final static Logger logger = Logger.getLogger(PrometResource.class);

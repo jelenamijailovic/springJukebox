@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/songs")
-@Api(value = "SongControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(value = "SongControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE, tags= "Songs")
 public class SongResource {
 
 	// final static Logger logger = Logger.getLogger(PesmaResource.class);

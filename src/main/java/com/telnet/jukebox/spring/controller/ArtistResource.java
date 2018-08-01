@@ -27,7 +27,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/artists")
-@Api(value = "ArtistControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(value = "ArtistControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE, tags= "Artists")
 public class ArtistResource {
 
 	// final static Logger logger = LogManager.getLogger(ArtistResource.class);

@@ -16,7 +16,10 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.annotations.ApiModel;
+
 @Entity
+@ApiModel(value= "moddel")
 @Table(name = "artists")
 public class Artist implements Serializable {
 

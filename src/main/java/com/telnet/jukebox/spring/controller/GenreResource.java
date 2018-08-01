@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/genres")
-@Api(value = "GenreControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE)
+@Api(value = "GenreControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE, tags= "Genres")
 public class GenreResource {
 
 	// final static Logger logger = Logger.getLogger(GenreResource.class);
