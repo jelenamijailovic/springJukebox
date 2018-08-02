@@ -3,6 +3,8 @@ package com.telnet.jukebox.spring.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,10 +29,10 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/artists")
-@Api(value = "ArtistControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE, tags= "Artists")
+@Api(value = "/artists", produces = MediaType.APPLICATION_JSON_VALUE, tags = "Artists")
 public class ArtistResource {
 
-	// final static Logger logger = LogManager.getLogger(ArtistResource.class);
+	public static final Logger logger = LogManager.getLogger(ArtistResource.class);
 
 	@Autowired
 	ArtistService artistService;
@@ -41,15 +43,17 @@ public class ArtistResource {
 	@CrossOrigin(origins = "*")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	@ApiOperation("Get all artists")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = List.class) })
+	@ApiOperation(value = "Get all artists")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = ArtistDTO.class) })
 	@ResponseBody
 	public List<ArtistDTO> getAllArtists() {
+		logger.info("All artists!");
 
 		List<ArtistDTO> listOfArtists = new ArrayList<ArtistDTO>();
 		try {
 			listOfArtists = artistService.getAllArtists();
 		} catch (EmptyListException e) {
+			logger.info("There are no artists in DB!");
 			e.printStackTrace();
 		}
 		return listOfArtists;
@@ -60,16 +64,17 @@ public class ArtistResource {
 	@GetMapping("/{artistId}/songs")
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation("Get songs by artist")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = List.class) })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = SongDTO.class) })
 	@ResponseBody
 	public List<SongDTO> getSongsByArtist(@PathVariable("artistId") Long artistId) {
-		// logger.info("Prikaz pesama za izvodjaca sa id-om " + artistId);
+		logger.info("Songs by artist: " + artistId + "!");
 
 		List<SongDTO> listOfSongs = new ArrayList<SongDTO>();
 
 		try {
 			listOfSongs = songService.getSongsByArtist(artistId);
 		} catch (EmptyListException e) {
+			logger.error("Songs by artist: " + artistId + " don't exist!");
 			e.printStackTrace();
 		}
 
@@ -80,15 +85,16 @@ public class ArtistResource {
 	@GetMapping("/top5artists")
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation("Get top 5 artists")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = List.class) })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = ArtistDTO.class) })
 	@ResponseBody
 	public List<ArtistDTO> getTop5Artists() {
-		// logger.info("Prikaz top 5 izvodjaca");
+		logger.info("Top 5 artists!");
 
 		List<ArtistDTO> listOfTraffic = new ArrayList<ArtistDTO>();
 		try {
 			listOfTraffic = artistService.getTop5Artists();
 		} catch (EmptyListException e) {
+			logger.error("Top 5 artists don't exist!");
 			e.printStackTrace();
 		}
 

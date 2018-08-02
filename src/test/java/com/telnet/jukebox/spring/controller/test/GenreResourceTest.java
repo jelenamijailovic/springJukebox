@@ -18,11 +18,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.telnet.jukebox.spring.controller.GenreResource;
+import com.telnet.jukebox.spring.dto.ArtistDTO;
 import com.telnet.jukebox.spring.dto.GenreDTO;
+import com.telnet.jukebox.spring.dto.PriceDTO;
 import com.telnet.jukebox.spring.dto.SongDTO;
-import com.telnet.jukebox.spring.model.Artist;
-import com.telnet.jukebox.spring.model.Genre;
-import com.telnet.jukebox.spring.model.Price;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = GenreResource.class, secure = false)
@@ -62,16 +61,16 @@ public class GenreResourceTest {
 
 	@Test
 	public void getSongByGenre() throws Exception {
-		Genre mockGenre = new Genre();
+		GenreDTO mockGenre = new GenreDTO();
 		mockGenre.setId(ID);
 		mockGenre.setName("genre");
 
-		Artist mockArtist = new Artist();
+		ArtistDTO mockArtist = new ArtistDTO();
 		mockArtist.setId((long) 1);
 		mockArtist.setName("artist");
 		mockArtist.setGenre(mockGenre);
 
-		Price mockPrice = new Price();
+		PriceDTO mockPrice = new PriceDTO();
 		mockPrice.setId((long) 1);
 		mockPrice.setPrice((long) 50);
 

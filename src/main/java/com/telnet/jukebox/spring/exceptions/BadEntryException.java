@@ -1,12 +1,12 @@
 package com.telnet.jukebox.spring.exceptions;
 
-import java.io.IOException;
+import javax.ws.rs.NotFoundException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class BadEntryException extends IOException {
+public class BadEntryException extends NotFoundException {
 	
 	/**
 	 * 

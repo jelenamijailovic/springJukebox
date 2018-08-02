@@ -1,8 +1,15 @@
 package com.telnet.jukebox.spring.dto;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value= "genre")
 public class GenreDTO {
 
+	@ApiModelProperty(dataType = "Long", example = "[2, 3, 22]", position = -1)
 	private Long id;
+	
+	@ApiModelProperty(dataType = "String", example = "[Rock, Narodna, Punk]", position = 0)
 	private String name;
 
 	public GenreDTO() {

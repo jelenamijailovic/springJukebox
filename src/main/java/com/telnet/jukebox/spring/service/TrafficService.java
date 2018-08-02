@@ -18,6 +18,9 @@ public class TrafficService {
 
 	@Autowired
 	TrafficRepository trafficRepository;
+	
+	@Autowired
+	SongService songService;
 
 	public List<TrafficDTO> getAllTraffic() throws EmptyListException {
 		List<TrafficDTO> listOfTrafficDTO = new ArrayList<TrafficDTO>();
@@ -53,7 +56,7 @@ public class TrafficService {
 		Traffic entity = new Traffic();
 		entity.setId(traffic.getId());
 		entity.setDate(traffic.getDate());
-		entity.setSong(traffic.getSong());
+		entity.setSong(songService.DTOToEntity(traffic.getSong()));
 		entity.setUser(traffic.getUser());
 		return entity;
 	}
@@ -62,7 +65,7 @@ public class TrafficService {
 		TrafficDTO dto = new TrafficDTO();
 		dto.setId(traffic.getId());
 		dto.setDate(traffic.getDate());
-		dto.setSong(traffic.getSong());
+		dto.setSong(songService.entityToDTO(traffic.getSong()));
 		dto.setUser(traffic.getUser());
 		return dto;
 	}

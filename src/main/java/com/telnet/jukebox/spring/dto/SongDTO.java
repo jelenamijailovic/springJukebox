@@ -1,28 +1,27 @@
 package com.telnet.jukebox.spring.dto;
 
-import com.telnet.jukebox.spring.model.Artist;
-import com.telnet.jukebox.spring.model.Price;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(value= "song")
 public class SongDTO {
 
+	@ApiModelProperty(dataType = "Long", example = "[12, 17, 24]", position = -1)
 	private Long id;
+	
+	@ApiModelProperty(dataType = "String", example = "[Kad hodas, Jos te nesto cini izuzetnom, U magnovenju]", position = -1)
 	private String name;
-	private Artist artist;
+	
+	@ApiModelProperty(position = 2)
+	private ArtistDTO artist;
 
-	private Price price;
+	@ApiModelProperty(position = 1)
+	private PriceDTO price;
 
 	public SongDTO() {
 
 	}
-
-	public SongDTO(Long id, String name, String artistName, Long price) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.artist = new Artist(artistName);
-		this.price = new Price(price);
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -39,19 +38,19 @@ public class SongDTO {
 		this.name = name;
 	}
 
-	public Artist getArtist() {
+	public ArtistDTO getArtist() {
 		return artist;
 	}
 
-	public void setArtist(Artist artist) {
+	public void setArtist(ArtistDTO artist) {
 		this.artist = artist;
 	}
 
-	public Price getPrice() {
+	public PriceDTO getPrice() {
 		return price;
 	}
 
-	public void setPrice(Price price) {
+	public void setPrice(PriceDTO price) {
 		this.price = price;
 	}
 

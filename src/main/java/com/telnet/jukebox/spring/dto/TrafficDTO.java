@@ -2,13 +2,22 @@ package com.telnet.jukebox.spring.dto;
 
 import java.sql.Date;
 
-import com.telnet.jukebox.spring.model.Song;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
+@ApiModel(value= "traffic")
 public class TrafficDTO {
 
+	@ApiModelProperty(dataType = "Long", example = "90", position = -1)
 	private Long id;
+	
+	@ApiModelProperty(dataType = "Date", example = "2018-07-31", position = 0)
 	private Date date;
-	private Song song;
+	
+	@ApiModelProperty(position = 2)
+	private SongDTO song;
+	
+	@ApiModelProperty(dataType = "String", example = "auth0|5b5f18f0bd4d6b7e562b6059", position = 1)
 	private String user;
 
 	public TrafficDTO() {
@@ -31,11 +40,11 @@ public class TrafficDTO {
 		this.date = date;
 	}
 
-	public Song getSong() {
+	public SongDTO getSong() {
 		return song;
 	}
 
-	public void setSong(Song song) {
+	public void setSong(SongDTO song) {
 		this.song = song;
 	}
 

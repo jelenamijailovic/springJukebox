@@ -36,6 +36,13 @@ public class GenreService {
 
 	}
 
+	public Genre DTOToEntity(GenreDTO genre) {
+		Genre entity = new Genre();
+		entity.setId(genre.getId());
+		entity.setName(genre.getName());
+		return entity;
+	}
+	
 	public GenreDTO entityToDTO(Genre genre) {
 		GenreDTO dto = new GenreDTO();
 		dto.setId(genre.getId());

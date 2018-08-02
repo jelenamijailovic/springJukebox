@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,19 +25,18 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.telnet.jukebox.spring.controller.SongResource;
+import com.telnet.jukebox.spring.dto.ArtistDTO;
+import com.telnet.jukebox.spring.dto.GenreDTO;
+import com.telnet.jukebox.spring.dto.PriceDTO;
 import com.telnet.jukebox.spring.dto.SongDTO;
-import com.telnet.jukebox.spring.model.Artist;
-import com.telnet.jukebox.spring.model.Genre;
-import com.telnet.jukebox.spring.model.Price;
-import com.telnet.jukebox.spring.model.Song;
-import com.telnet.jukebox.spring.model.Traffic;
+import com.telnet.jukebox.spring.dto.TrafficDTO;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(value = SongResource.class, secure = false)
 public class SongResourceTest {
 
 	private static final int PAGE = 1;
-	
+
 	@Autowired
 	private MockMvc mockMvc;
 
@@ -45,16 +45,16 @@ public class SongResourceTest {
 
 	@Test
 	public void getSongs() throws Exception {
-		Genre mockGenre = new Genre();
+		GenreDTO mockGenre = new GenreDTO();
 		mockGenre.setId((long) 1);
 		mockGenre.setName("genre");
 
-		Artist mockArtist = new Artist();
+		ArtistDTO mockArtist = new ArtistDTO();
 		mockArtist.setId((long) 1);
 		mockArtist.setName("artist");
 		mockArtist.setGenre(mockGenre);
 
-		Price mockPrice = new Price();
+		PriceDTO mockPrice = new PriceDTO();
 		mockPrice.setId((long) 1);
 		mockPrice.setPrice((long) 50);
 
@@ -115,13 +115,13 @@ public class SongResourceTest {
 
 	@Test
 	public void getTop5Songs() throws Exception {
-		Price mockPrice = new Price();
+		PriceDTO mockPrice = new PriceDTO();
 		mockPrice.setPrice((long) 50);
 
-		Genre mockGenre = new Genre();
+		GenreDTO mockGenre = new GenreDTO();
 		mockGenre.setName("noviZanr1");
 
-		Artist mockArtist = new Artist();
+		ArtistDTO mockArtist = new ArtistDTO();
 		mockArtist.setName("noviZanr1");
 		mockArtist.setGenre(mockGenre);
 
@@ -155,84 +155,84 @@ public class SongResourceTest {
 		mockSong6.setPrice(mockPrice);
 		mockSong6.setArtist(mockArtist);
 
-		Traffic mockTraffic1 = new Traffic();
+		TrafficDTO mockTraffic1 = new TrafficDTO();
 		mockTraffic1.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic1.setSong(DTOtoEntity(mockSong1));
+		mockTraffic1.setSong(mockSong1);
 		mockTraffic1.setUser("auth0|123456789");
 
-		Traffic mockTraffic2 = new Traffic();
+		TrafficDTO mockTraffic2 = new TrafficDTO();
 		mockTraffic2.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic2.setSong(DTOtoEntity(mockSong1));
+		mockTraffic2.setSong(mockSong1);
 		mockTraffic2.setUser("auth0|123456789");
 
-		Traffic mockTraffic3 = new Traffic();
+		TrafficDTO mockTraffic3 = new TrafficDTO();
 		mockTraffic3.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic3.setSong(DTOtoEntity(mockSong1));
+		mockTraffic3.setSong(mockSong1);
 		mockTraffic3.setUser("auth0|123456789");
 
-		Traffic mockTraffic4 = new Traffic();
+		TrafficDTO mockTraffic4 = new TrafficDTO();
 		mockTraffic4.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic4.setSong(DTOtoEntity(mockSong2));
+		mockTraffic4.setSong(mockSong2);
 		mockTraffic4.setUser("auth0|123456789");
 
-		Traffic mockTraffic5 = new Traffic();
+		TrafficDTO mockTraffic5 = new TrafficDTO();
 		mockTraffic5.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic5.setSong(DTOtoEntity(mockSong2));
+		mockTraffic5.setSong(mockSong2);
 		mockTraffic5.setUser("auth0|123456789");
 
-		Traffic mockTraffic6 = new Traffic();
+		TrafficDTO mockTraffic6 = new TrafficDTO();
 		mockTraffic6.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic6.setSong(DTOtoEntity(mockSong2));
+		mockTraffic6.setSong(mockSong2);
 		mockTraffic6.setUser("auth0|123456789");
 
-		Traffic mockTraffic7 = new Traffic();
+		TrafficDTO mockTraffic7 = new TrafficDTO();
 		mockTraffic7.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic7.setSong(DTOtoEntity(mockSong2));
+		mockTraffic7.setSong(mockSong2);
 		mockTraffic7.setUser("auth0|123456789");
 
-		Traffic mockTraffic8 = new Traffic();
+		TrafficDTO mockTraffic8 = new TrafficDTO();
 		mockTraffic8.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic8.setSong(DTOtoEntity(mockSong3));
+		mockTraffic8.setSong(mockSong3);
 		mockTraffic8.setUser("auth0|123456789");
 
-		Traffic mockTraffic9 = new Traffic();
+		TrafficDTO mockTraffic9 = new TrafficDTO();
 		mockTraffic9.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic9.setSong(DTOtoEntity(mockSong3));
+		mockTraffic9.setSong(mockSong3);
 		mockTraffic9.setUser("auth0|123456789");
 
-		Traffic mockTraffic10 = new Traffic();
+		TrafficDTO mockTraffic10 = new TrafficDTO();
 		mockTraffic10.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic10.setSong(DTOtoEntity(mockSong3));
+		mockTraffic10.setSong(mockSong3);
 		mockTraffic10.setUser("auth0|123456789");
 
-		Traffic mockTraffic11 = new Traffic();
+		TrafficDTO mockTraffic11 = new TrafficDTO();
 		mockTraffic11.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic11.setSong(DTOtoEntity(mockSong4));
+		mockTraffic11.setSong(mockSong4);
 		mockTraffic11.setUser("auth0|123456789");
 
-		Traffic mockTraffic12 = new Traffic();
+		TrafficDTO mockTraffic12 = new TrafficDTO();
 		mockTraffic12.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic12.setSong(DTOtoEntity(mockSong4));
+		mockTraffic12.setSong(mockSong4);
 		mockTraffic12.setUser("auth0|123456789");
 
-		Traffic mockTraffic13 = new Traffic();
+		TrafficDTO mockTraffic13 = new TrafficDTO();
 		mockTraffic13.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic13.setSong(DTOtoEntity(mockSong5));
+		mockTraffic13.setSong(mockSong5);
 		mockTraffic13.setUser("auth0|123456789");
 
-		Traffic mockTraffic14 = new Traffic();
+		TrafficDTO mockTraffic14 = new TrafficDTO();
 		mockTraffic14.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic14.setSong(DTOtoEntity(mockSong6));
+		mockTraffic14.setSong(mockSong6);
 		mockTraffic14.setUser("auth0|123456789");
 
-		Traffic mockTraffic15 = new Traffic();
+		TrafficDTO mockTraffic15 = new TrafficDTO();
 		mockTraffic15.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic15.setSong(DTOtoEntity(mockSong6));
+		mockTraffic15.setSong(mockSong6);
 		mockTraffic15.setUser("auth0|123456789");
 
-		Traffic mockTraffic16 = new Traffic();
+		TrafficDTO mockTraffic16 = new TrafficDTO();
 		mockTraffic16.setDate(new java.sql.Date(new java.util.Date().getTime()));
-		mockTraffic16.setSong(DTOtoEntity(mockSong6));
+		mockTraffic16.setSong(mockSong6);
 		mockTraffic16.setUser("auth0|123456789");
 
 		List<SongDTO> mockList = new ArrayList<>();
@@ -253,13 +253,95 @@ public class SongResourceTest {
 
 	}
 
-	public Song DTOtoEntity(SongDTO song) {
-		Song entity = new Song();
-		entity.setId(song.getId());
-		entity.setName(song.getName());
-		entity.setArtist(song.getArtist());
-		entity.setPrice(song.getPrice());
-		return entity;
+	@Test
+	public void recomended() throws Exception {
+		PriceDTO mockPrice = new PriceDTO();
+		mockPrice.setPrice((long) 50);
+
+		GenreDTO mockGenre1 = new GenreDTO();
+		mockGenre1.setName("noviZanr1");
+
+		GenreDTO mockGenre2 = new GenreDTO();
+		mockGenre2.setName("noviZanr2");
+
+		ArtistDTO mockArtist1 = new ArtistDTO();
+		mockArtist1.setName("noviZanr1");
+		mockArtist1.setGenre(mockGenre1);
+
+		ArtistDTO mockArtist2 = new ArtistDTO();
+		mockArtist2.setName("noviIzvodjac1");
+		mockArtist2.setGenre(mockGenre2);
+
+		ArtistDTO mockArtist3 = new ArtistDTO();
+		mockArtist3.setName("noviIzvodjac2");
+		mockArtist3.setGenre(mockGenre2);
+
+		SongDTO mockSong1 = new SongDTO();
+		mockSong1.setName("novaPesma1");
+		mockSong1.setPrice(mockPrice);
+		mockSong1.setArtist(mockArtist3);
+
+		SongDTO mockSong2 = new SongDTO();
+		mockSong2.setName("novaPesma2");
+		mockSong2.setPrice(mockPrice);
+		mockSong2.setArtist(mockArtist2);
+
+		SongDTO mockSong3 = new SongDTO();
+		mockSong3.setName("novaPesma3");
+		mockSong3.setPrice(mockPrice);
+		mockSong3.setArtist(mockArtist1);
+
+		SongDTO mockSong4 = new SongDTO();
+		mockSong4.setName("novaPesma4");
+		mockSong4.setPrice(mockPrice);
+		mockSong4.setArtist(mockArtist2);
+
+		SongDTO mockSong5 = new SongDTO();
+		mockSong5.setName("novaPesma5");
+		mockSong5.setPrice(mockPrice);
+		mockSong5.setArtist(mockArtist3);
+
+		SongDTO mockSong6 = new SongDTO();
+		mockSong6.setName("novaPesma6");
+		mockSong6.setPrice(mockPrice);
+		mockSong6.setArtist(mockArtist2);
+
+		List<SongDTO> songsByGenre = new ArrayList<>();
+		songsByGenre.add(mockSong1);
+		songsByGenre.add(mockSong2);
+		songsByGenre.add(mockSong4);
+		songsByGenre.add(mockSong5);
+		songsByGenre.add(mockSong6);
+
+		Random randomGenerator = new Random();
+
+		List<SongDTO> recomended = new ArrayList<SongDTO>();
+
+		for (int br = 0; br < 3; br++) {
+			int index = randomGenerator.nextInt(songsByGenre.size());
+			SongDTO randomSong = new SongDTO();
+			randomSong = songsByGenre.get(index);
+			for (int i = 0; i < recomended.size(); i++) {
+				if (randomSong == recomended.get(i)) {
+					System.out.println("The song is repeated");
+					randomSong = songsByGenre.get(index + 1);
+					i = recomended.size();
+				} else {
+					randomSong = songsByGenre.get(index);
+				}
+			}
+			recomended.add(randomSong);
+		}
+
+		String authorization = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJEZENORUZGTWtGRU5VWkdOelV6TnpRek4wRkdNak0xUmpCR1F6VXdSVE00TmpZNE1EUXhRUSJ9.eyJuaWNrbmFtZSI6Im1pbGlqYW4iLCJuYW1lIjoibWlsaWphbkBnbWFpbC5jb20iLCJwaWN0dXJlIjoiaHR0cHM6Ly9zLmdyYXZhdGFyLmNvbS9hdmF0YXIvMTM3OWMxYzdhNzFmNGI2NzM3MGFhZmVjYjgxZWEzY2Q_cz00ODAmcj1wZyZkPWh0dHBzJTNBJTJGJTJGY2RuLmF1dGgwLmNvbSUyRmF2YXRhcnMlMkZtaS5wbmciLCJ1cGRhdGVkX2F0IjoiMjAxOC0wNy0zMVQwOToxMDoyNi44NTVaIiwiaXNzIjoiaHR0cHM6Ly9uZWRvdmljbS5ldS5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWI1ZjE4ZjBiZDRkNmI3ZTU2MmI2MDU5IiwiYXVkIjoiNGd6NlZEVmkyMGp4bzFucXRrNWlnUjRDMGhTeWtOQ04iLCJpYXQiOjE1MzMwMjgyMjYsImV4cCI6MTUzMzAzNTQyNiwiYXRfaGFzaCI6IkRRREJtSXQzTzZzUUpaZmJrT1c2VGciLCJub25jZSI6InRxU2ZqS1ZmR042RUJKNUlDcndYWjVxOUtZS3R1RUR3In0.tQcIlXr7axLiTFlzMIh0dojrcpcStGI_ua4EWvVEL1nwPOTIfHwE-aiH-tUibyWTMvhuvl348r8Dr0HwSAgGN4ojniQQ47fsO_JSYB4zsYRQB-6dzmZbp8F_a4RBr_9RrJmcqGRRGT05ucIZ0sfCogo2QPgpPw5lccOX8nbI54rHPJPrM-Rr1WzugMRrGA5rIkM_Cve9_6vCgLYzOVPz3ca-zocyz4KiXwrJY5D6cxq2RWr-SD-CkHhAs5SZv83Us4ZY2YigSbf-zDe0FckfzDRA3KmysD6joGyLmz_DvtLqInc5pm_xf8ZVkCvZRv3aEJSzhH60s0nzW004-izZaw";
+
+		Mockito.when(songResource.recomended(authorization)).thenReturn(recomended);
+		String URI = "/songs/recomended";
+
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(URI).header("Content-Type", "application/json")
+				.header("Authorization", authorization);
+
+		mockMvc.perform(requestBuilder).andExpect(status().isOk());
 	}
 
 }

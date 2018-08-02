@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,8 +24,6 @@ import com.telnet.jukebox.spring.dto.TrafficDTO;
 import com.telnet.jukebox.spring.exceptions.BadEntryException;
 import com.telnet.jukebox.spring.exceptions.EmptyListException;
 import com.telnet.jukebox.spring.exceptions.ExpTokenException;
-import com.telnet.jukebox.spring.exceptions.UserNotFoundException;
-import com.telnet.jukebox.spring.service.SongService;
 import com.telnet.jukebox.spring.service.TrafficService;
 
 import io.swagger.annotations.Api;
@@ -36,30 +36,28 @@ import com.auth0.jwt.JWT;
 
 @RestController
 @RequestMapping("/traffic")
-@Api(value = "TrafficControllerAPI", produces = MediaType.APPLICATION_JSON_VALUE, tags= "Traffic")
+@Api(value = "/traffic", produces = MediaType.APPLICATION_JSON_VALUE, tags = "Traffic")
 public class TrafficResource {
 
-	// final static Logger logger = Logger.getLogger(PrometResource.class);
+	public static final Logger logger = LogManager.getLogger(TrafficResource.class);
 
 	@Autowired
 	public TrafficService trafficService;
-
-	@Autowired
-	public SongService songService;
 
 	@CrossOrigin(origins = "*")
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	@ApiOperation("Get all traffic")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = List.class) })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK", response = SongDTO.class) })
 	@ResponseBody
 	public List<TrafficDTO> getSviPrometi() {
-		// logger.info("Prikaz svih prometa");
+		logger.info("All traffic!");
 
 		List<TrafficDTO> listOfTrafficDTO = new ArrayList<TrafficDTO>();
 		try {
 			listOfTrafficDTO = trafficService.getAllTraffic();
 		} catch (EmptyListException e) {
+			logger.error("There are no traffic in DB!");
 			e.printStackTrace();
 		}
 
@@ -74,51 +72,30 @@ public class TrafficResource {
 	@ResponseBody
 	public TrafficDTO addTraffic(@RequestHeader("Authorization") String authorization,
 			@RequestBody TrafficDTO traffic) {
-		// logger.info("Unosenje prometa");
+		logger.info("Add traffic!");
 
-		System.out.println(authorization);
+		logger.info("Authorization header is: " + authorization);
 
-		// logger.info(authorization);
-
-		DecodedJWT decJwr = JWT.decode(authorization.substring(7));
-		String id = decJwr.getSubject();
+		DecodedJWT decJwt = JWT.decode(authorization.substring(7));
+		String id = decJwt.getSubject();
 		Long today = new Date().getTime();
-		Long expiration = decJwr.getExpiresAt().getTime();
+		Long expiration = decJwt.getExpiresAt().getTime();
 		if (today >= expiration) {
+			logger.error("Token has been expired!");
 			throw new ExpTokenException("Token expiration");
 		} else {
 			traffic.setUser(id);
-			System.out.println("User id from token is  :" + id);
+			logger.info("User id from token is  :" + id);
 			try {
-				return trafficService.addTraffic(traffic);
-			} catch (ExpTokenException e) {
-				e.printStackTrace();
+				trafficService.addTraffic(traffic);
+				logger.info("Traffic is added!");
+				return traffic;
 			} catch (BadEntryException e) {
+				logger.error("Invalid data entry!");
 				e.printStackTrace();
 			}
 		}
-		return null;
-	}
-
-	@CrossOrigin(origins = "*")
-	@GetMapping("/recomended")
-	@ResponseStatus(HttpStatus.OK)
-	@ResponseBody
-	public List<SongDTO> recomended(@RequestHeader("Authorization") String authorization) {
-		// logger.info("Preporucujemo");
-
-		DecodedJWT decJwt = JWT.decode(authorization.substring(7));
-		String user = decJwt.getSubject();
-
-		List<SongDTO> listOfSongs = new ArrayList<SongDTO>();
-		try {
-			listOfSongs = songService.recomended(user);
-		} catch (UserNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		return listOfSongs;
-
+		return new TrafficDTO();
 	}
 
 }

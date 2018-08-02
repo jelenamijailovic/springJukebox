@@ -33,6 +33,12 @@ public class SongService {
 
 	@Autowired
 	TrafficRepository trafficRepository;
+	
+	@Autowired
+	ArtistService artistService;
+	
+	@Autowired
+	PriceService priceService;
 
 	public List<SongDTO> getSongsByArtist(Long artistId) throws EmptyListException {
 		List<SongDTO> listOfSongsDTO = new ArrayList<SongDTO>();
@@ -166,13 +172,22 @@ public class SongService {
 
 		}
 	}
-
+	
+	public Song DTOToEntity(SongDTO song) {
+		Song entity = new Song();
+		entity.setId(song.getId());
+		entity.setName(song.getName());
+		entity.setArtist(artistService.DTOToEntity(song.getArtist()));
+		entity.setPrice(priceService.DTOToEntity(song.getPrice()));
+		return entity;
+	}
+	
 	public SongDTO entityToDTO(Song song) {
 		SongDTO dto = new SongDTO();
 		dto.setId(song.getId());
 		dto.setName(song.getName());
-		dto.setArtist(song.getArtist());
-		dto.setPrice(song.getPrice());
+		dto.setArtist(artistService.entityToDTO(song.getArtist()));
+		dto.setPrice(priceService.entityToDTO(song.getPrice()));
 		return dto;
 	}
 

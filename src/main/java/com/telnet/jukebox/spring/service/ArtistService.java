@@ -17,6 +17,9 @@ public class ArtistService {
 
 	@Autowired
 	ArtistRepository artistRepository;
+	
+	@Autowired
+	GenreService genreService;
 
 	public List<ArtistDTO> getAllArtists() throws EmptyListException {
 		List<ArtistDTO> listOfArtistsDTO = new ArrayList<ArtistDTO>();
@@ -74,11 +77,19 @@ public class ArtistService {
 		}
 	}
 
+	public Artist DTOToEntity(ArtistDTO artist) {
+		Artist entity = new Artist();
+		entity.setId(artist.getId());
+		entity.setName(artist.getName());
+		entity.setGenre(genreService.DTOToEntity(artist.getGenre()));
+		return entity;
+	}
+	
 	public ArtistDTO entityToDTO(Artist artist) {
 		ArtistDTO dto = new ArtistDTO();
 		dto.setId(artist.getId());
 		dto.setName(artist.getName());
-		dto.setGenre(artist.getGenre());
+		dto.setGenre(genreService.entityToDTO(artist.getGenre()));
 		return dto;
 	}
 }
