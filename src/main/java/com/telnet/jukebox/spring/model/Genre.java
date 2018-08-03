@@ -37,16 +37,16 @@ public class Genre implements Serializable {
 	public Genre() {
 	}
 
-	public Genre(String name) {
+	public Genre(Long id) {
 		super();
-		this.name = name;
+		this.id = id;
 	}
 
-	public Genre(Long id, String name) {
+	/*public Genre(Long id, String name) {
 		super();
 		this.id = id;
 		this.name = name;
-	}
+	}*/
 
 	public Long getId() {
 		return id;

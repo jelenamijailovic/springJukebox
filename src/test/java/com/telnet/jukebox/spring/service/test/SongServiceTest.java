@@ -47,8 +47,8 @@ public class SongServiceTest {
 
 		assertEquals(mockSong.getId(), mockSongDTO.getId());
 		assertEquals(mockSong.getName(), mockSongDTO.getName());
-		assertEquals(mockSong.getArtist(), mockSongDTO.getArtist());
-		assertEquals(mockSong.getPrice(), mockSongDTO.getPrice());
+		assertEquals(mockSong.getArtist().getGenre().getId(), mockSongDTO.getArtist().getGenre().getId());
+		assertEquals(mockSong.getPrice().getId(), mockSongDTO.getPrice().getId());
 
 	}
 

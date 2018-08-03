@@ -16,8 +16,6 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import io.swagger.annotations.ApiModel;
-
 @Entity
 @Table(name = "artists")
 public class Artist implements Serializable {
@@ -45,16 +43,9 @@ public class Artist implements Serializable {
 	public Artist() {
 	}
 
-	public Artist(String name) {
-		super();
-		this.name = name;
-	}
-
-	public Artist(Long id, String name, String genreName) {
+	public Artist(Long id) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.genre = new Genre(genreName);
 	}
 
 	public Long getId() {

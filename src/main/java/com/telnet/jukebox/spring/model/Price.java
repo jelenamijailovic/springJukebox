@@ -33,9 +33,9 @@ public class Price implements Serializable {
 	public Price() {
 	}
 
-	public Price(Long price) {
+	public Price(Long id) {
 		super();
-		this.price = price;
+		this.id = id;
 	}
 
 	public Price(Long id, Long price) {

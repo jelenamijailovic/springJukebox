@@ -3,15 +3,15 @@ package com.telnet.jukebox.spring.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-@ApiModel(value= "song")
+@ApiModel(value = "song")
 public class SongDTO {
 
 	@ApiModelProperty(dataType = "Long", example = "[12, 17, 24]", position = -1)
 	private Long id;
-	
+
 	@ApiModelProperty(dataType = "String", example = "[Kad hodas, Jos te nesto cini izuzetnom, U magnovenju]", position = -1)
 	private String name;
-	
+
 	@ApiModelProperty(position = 2)
 	private ArtistDTO artist;
 
@@ -21,7 +21,7 @@ public class SongDTO {
 	public SongDTO() {
 
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

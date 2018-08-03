@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.telnet.jukebox.spring.dto.SongDTO;
 import com.telnet.jukebox.spring.dto.TrafficDTO;
-import com.telnet.jukebox.spring.exceptions.BadEntryException;
 import com.telnet.jukebox.spring.exceptions.EmptyListException;
 import com.telnet.jukebox.spring.exceptions.ExpTokenException;
 import com.telnet.jukebox.spring.service.TrafficService;
@@ -68,10 +67,9 @@ public class TrafficResource {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiOperation("Add new traffic")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "CREATED", response = TrafficDTO.class) })
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "CREATED") })
 	@ResponseBody
-	public TrafficDTO addTraffic(@RequestHeader("Authorization") String authorization,
-			@RequestBody TrafficDTO traffic) {
+	public void addTraffic(@RequestHeader("Authorization") String authorization, @RequestBody TrafficDTO traffic) {
 		logger.info("Add traffic!");
 
 		logger.info("Authorization header is: " + authorization);
@@ -81,21 +79,13 @@ public class TrafficResource {
 		Long today = new Date().getTime();
 		Long expiration = decJwt.getExpiresAt().getTime();
 		if (today >= expiration) {
-			logger.error("Token has been expired!");
 			throw new ExpTokenException("Token expiration");
 		} else {
 			traffic.setUser(id);
 			logger.info("User id from token is  :" + id);
-			try {
-				trafficService.addTraffic(traffic);
-				logger.info("Traffic is added!");
-				return traffic;
-			} catch (BadEntryException e) {
-				logger.error("Invalid data entry!");
-				e.printStackTrace();
-			}
+			trafficService.addTraffic(traffic);
+			logger.info("Traffic is added!");
 		}
-		return new TrafficDTO();
-	}
 
+	}
 }

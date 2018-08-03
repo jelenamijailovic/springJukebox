@@ -54,7 +54,7 @@ public class TrafficServiceTest {
 
 		assertEquals(mockTraffic.getId(), mockTrafficDTO.getId());
 		assertEquals(mockTraffic.getDate(), mockTrafficDTO.getDate());
-		assertEquals(mockTraffic.getSong(), mockTrafficDTO.getSong());
+		assertEquals(mockTraffic.getSong().getArtist().getId(), mockTrafficDTO.getSong().getArtist().getId());
 		assertEquals(mockTraffic.getUser(), mockTrafficDTO.getUser());
 
 	}

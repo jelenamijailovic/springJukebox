@@ -16,6 +16,7 @@ import com.telnet.jukebox.spring.exceptions.EmptyListException;
 import com.telnet.jukebox.spring.exceptions.UserNotFoundException;
 import com.telnet.jukebox.spring.model.Artist;
 import com.telnet.jukebox.spring.model.Genre;
+import com.telnet.jukebox.spring.model.Price;
 import com.telnet.jukebox.spring.model.Song;
 import com.telnet.jukebox.spring.model.Traffic;
 import com.telnet.jukebox.spring.repository.GenreRepository;
@@ -33,10 +34,10 @@ public class SongService {
 
 	@Autowired
 	TrafficRepository trafficRepository;
-	
+
 	@Autowired
 	ArtistService artistService;
-	
+
 	@Autowired
 	PriceService priceService;
 
@@ -139,8 +140,12 @@ public class SongService {
 			for (int i = 0; i < recomended.size(); i++) {
 				if (randomSong == recomended.get(i)) {
 					System.out.println("The song is repeated");
+					
+					if(index<songsByGenre.size()-1) {
 					randomSong = songsByGenre.get(index + 1);
 					i = recomended.size();
+					}
+					
 				} else {
 					randomSong = songsByGenre.get(index);
 				}
@@ -172,16 +177,22 @@ public class SongService {
 
 		}
 	}
-	
+
 	public Song DTOToEntity(SongDTO song) {
 		Song entity = new Song();
 		entity.setId(song.getId());
 		entity.setName(song.getName());
-		entity.setArtist(artistService.DTOToEntity(song.getArtist()));
-		entity.setPrice(priceService.DTOToEntity(song.getPrice()));
+		try {
+			entity.setArtist(artistService.DTOToEntity(song.getArtist()));
+			entity.setPrice(priceService.DTOToEntity(song.getPrice()));
+		} catch (NullPointerException e) {
+			entity.setArtist(new Artist((long) 0));
+			entity.setPrice(new Price((long) 0));
+		}
+		
 		return entity;
 	}
-	
+
 	public SongDTO entityToDTO(Song song) {
 		SongDTO dto = new SongDTO();
 		dto.setId(song.getId());

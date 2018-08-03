@@ -47,20 +47,7 @@ public class Song implements Serializable {
 	public Song() {
 
 	}
-
-	public Song(String name) {
-		super();
-		this.name = name;
-	}
-
-	public Song(Long id, String name, String artistName, Long price) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.artist = new Artist(artistName);
-		this.price = new Price(price);
-	}
-
+	
 	public Long getId() {
 		return id;
 	}

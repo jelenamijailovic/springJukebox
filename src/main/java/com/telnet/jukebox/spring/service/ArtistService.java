@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.telnet.jukebox.spring.dto.ArtistDTO;
 import com.telnet.jukebox.spring.exceptions.EmptyListException;
 import com.telnet.jukebox.spring.model.Artist;
+import com.telnet.jukebox.spring.model.Genre;
 import com.telnet.jukebox.spring.repository.ArtistRepository;
 
 @Service
@@ -81,7 +82,11 @@ public class ArtistService {
 		Artist entity = new Artist();
 		entity.setId(artist.getId());
 		entity.setName(artist.getName());
+		try {
 		entity.setGenre(genreService.DTOToEntity(artist.getGenre()));
+		} catch(NullPointerException e) {
+			entity.setGenre(new Genre((long) 0));
+		}
 		return entity;
 	}
 	

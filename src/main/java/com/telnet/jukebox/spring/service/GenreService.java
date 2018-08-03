@@ -42,11 +42,16 @@ public class GenreService {
 		entity.setName(genre.getName());
 		return entity;
 	}
-	
+
 	public GenreDTO entityToDTO(Genre genre) {
 		GenreDTO dto = new GenreDTO();
-		dto.setId(genre.getId());
-		dto.setName(genre.getName());
+		try {
+			dto.setId(genre.getId());
+			dto.setName(genre.getName());
+		} catch (NullPointerException e) {
+			dto.setId((long) 0);
+			dto.setName("");
+		}
 		return dto;
 	}
 }

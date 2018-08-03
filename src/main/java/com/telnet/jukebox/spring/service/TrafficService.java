@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.telnet.jukebox.spring.dto.TrafficDTO;
-import com.telnet.jukebox.spring.exceptions.BadEntryException;
 import com.telnet.jukebox.spring.exceptions.EmptyListException;
-import com.telnet.jukebox.spring.exceptions.ExpTokenException;
 import com.telnet.jukebox.spring.model.Traffic;
 import com.telnet.jukebox.spring.repository.TrafficRepository;
 
@@ -40,7 +38,7 @@ public class TrafficService {
 		return listOfTrafficDTO;
 	}
 
-	public TrafficDTO addTraffic(TrafficDTO traffic) throws BadEntryException, ExpTokenException {
+	public TrafficDTO addTraffic(TrafficDTO traffic) {
 
 		java.util.Date datum = new java.util.Date();
 		java.sql.Date date = new java.sql.Date(datum.getTime());

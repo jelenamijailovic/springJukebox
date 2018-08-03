@@ -35,7 +35,7 @@ public class ArtistServiceTest {
 
 		assertEquals(mockArtist.getId(), mockArtistDTO.getId());
 		assertEquals(mockArtist.getName(), mockArtistDTO.getName());
-		assertEquals(mockArtist.getGenre(), mockArtistDTO.getGenre());
+		assertEquals(mockArtist.getGenre().getId(), mockArtistDTO.getGenre().getId());
 
 	}
 

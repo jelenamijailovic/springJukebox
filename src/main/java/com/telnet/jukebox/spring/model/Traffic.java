@@ -38,14 +38,6 @@ public class Traffic implements Serializable {
 	public Traffic() {
 	}
 
-	public Traffic(Long id, Date date, String songName, String user) {
-		super();
-		this.id = id;
-		this.date = date;
-		this.song = new Song(songName);
-		this.user = user;
-	}
-
 	public Long getId() {
 		return id;
 	}
