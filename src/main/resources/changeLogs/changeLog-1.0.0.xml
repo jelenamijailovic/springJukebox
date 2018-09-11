@@ -1,0 +1,85 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="dev-10 (generated)" id="1536564310187-1">
+        <createTable tableName="artists">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genre_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="dev-10 (generated)" id="1536564310187-2">
+        <createTable tableName="genres">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(45)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="dev-10 (generated)" id="1536564310187-3">
+        <createTable tableName="hibernate_sequence">
+            <column name="next_val" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="dev-10 (generated)" id="1536564310187-4">
+        <createTable tableName="prices">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="price" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="dev-10 (generated)" id="1536564310187-5">
+        <createTable tableName="songs">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="artist_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="dev-10 (generated)" id="1536564310187-6">
+        <createTable tableName="traffic">
+            <column autoIncrement="true" name="id" type="INT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="date" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="song_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="dev-10 (generated)" id="1536564310187-7">
+        <addForeignKeyConstraint baseColumnNames="genre_id" baseTableName="artists" baseTableSchemaName="jukeboxSpring" constraintName="fk_artists_genres" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="genres" referencedTableSchemaName="jukeboxSpring" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="dev-10 (generated)" id="1536564310187-8">
+        <addForeignKeyConstraint baseColumnNames="artist_id" baseTableName="songs" baseTableSchemaName="jukeboxSpring" constraintName="fk_songs_artists" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="artists" referencedTableSchemaName="jukeboxSpring" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="dev-10 (generated)" id="1536564310187-9">
+        <addForeignKeyConstraint baseColumnNames="price_id" baseTableName="songs" baseTableSchemaName="jukeboxSpring" constraintName="fk_songs_prices" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="prices" referencedTableSchemaName="jukeboxSpring" referencesUniqueColumn="false"/>
+    </changeSet>
+    <changeSet author="dev-10 (generated)" id="1536564310187-10">
+        <addForeignKeyConstraint baseColumnNames="song_id" baseTableName="traffic" baseTableSchemaName="jukeboxSpring" constraintName="fk_traffic_songs" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="songs" referencedTableSchemaName="jukeboxSpring" referencesUniqueColumn="false"/>
+    </changeSet>
+</databaseChangeLog>
